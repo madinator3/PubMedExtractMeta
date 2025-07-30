@@ -1,85 +1,10 @@
-# Byte-compiled / optimized / DLL files
-__pycache__/
-*.py[cod]
-*$py.class
+# Title: Searching PubMed
+# Last Updated: 2025-07-30
+# Description: This script searches PubMed for articles related to a specific topic using the Entrez Programming Utilities (E-utilities).
+# Source: https://github.com/TLDWTutorials/PubmedAPI/blob/main/pubmed_api_in_python_2024.py
 
-# C extensions
-*.so
+#=============== Libraries ==============
+import pandas as pd
+import json
+from Bio import Entrez
 
-# Distribution / packaging
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-*.egg-info/
-.installed.cfg
-*.egg
-
-# Virtual environments
-env/
-venv/
-ENV/
-.venv/
-env.bak/
-venv.bak/
-scripts/__pycache__/
-scripts/env/
-scripts/venv/
-
-# PyInstaller
-*.manifest
-*.spec
-
-# Installer logs
-pip-log.txt
-pip-delete-this-directory.txt
-
-# Unit test / coverage reports
-htmlcov/
-.tox/
-.nox/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
-.hypothesis/
-.pytest_cache/
-
-# Jupyter Notebook
-.ipynb_checkpoints
-
-# pyenv
-.python-version
-
-# mypy
-.mypy_cache/
-.dmypy.json
-dmypy.json
-
-# VS Code
-.vscode/
-
-# MacOS
-.DS_Store
-
-# Windows
-Thumbs.db
-ehthumbs.db
-Desktop.ini
-
-# PyCharm
-.idea/
-
-# Local config
-*.env
-*.local

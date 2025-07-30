@@ -1,85 +1,13 @@
-# Byte-compiled / optimized / DLL files
-__pycache__/
-*.py[cod]
-*$py.class
+# Title: Configs
+# Last Updated: 2025-07-30
+# Description: This script contains configuration settings for the PubMed API client.
+# Source: https://github.com/SoftwareImpacts/SIMPAC-2024-316
 
-# C extensions
-*.so
+#=============== Libraries ==============
+import os
+import sys
+import yaml
+import pandas as pd
 
-# Distribution / packaging
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-*.egg-info/
-.installed.cfg
-*.egg
 
-# Virtual environments
-env/
-venv/
-ENV/
-.venv/
-env.bak/
-venv.bak/
-scripts/__pycache__/
-scripts/env/
-scripts/venv/
-
-# PyInstaller
-*.manifest
-*.spec
-
-# Installer logs
-pip-log.txt
-pip-delete-this-directory.txt
-
-# Unit test / coverage reports
-htmlcov/
-.tox/
-.nox/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
-.hypothesis/
-.pytest_cache/
-
-# Jupyter Notebook
-.ipynb_checkpoints
-
-# pyenv
-.python-version
-
-# mypy
-.mypy_cache/
-.dmypy.json
-dmypy.json
-
-# VS Code
-.vscode/
-
-# MacOS
-.DS_Store
-
-# Windows
-Thumbs.db
-ehthumbs.db
-Desktop.ini
-
-# PyCharm
-.idea/
-
-# Local config
-*.env
-*.local
+#=============== Importing modules internal to the project ==============

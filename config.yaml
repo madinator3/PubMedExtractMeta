@@ -13,22 +13,19 @@ config:
 
 # Directory settings
 directories:
-  output: "./data/processed"                                        # Main directory for storing output files.
-  xml: "./data/processed/xml"                                       # Write XML Download.
-  input: "./data/input"                                             # Main directory for storing input files.
+  output: "./output"                                                # Main directory for storing output files.
+  xml: "./output"                                                   # Write XML Download.
   logs: "./logs"                                                    # Directory for storing log files.
-  type_files: "./data/processed/files_type"                         # Arquivos convertidos.
 
 # File settings
 files:
-  file_data_error: "./metadata/NotProcessed.csv"                               # file not encountered during execution.
-  file_data_input: "References_MJFF_15122024.csv"                   # file template input to process
-  file_parsing_pubmed: "./metadata/PubMed_Metadata.csv"             # file extract metada from Pubmed to pubmedfile
-  file_parsing_bibliometrix: "./metadata/Bibliometrix_Metadata.csv" # file extract metada from Pubmed to bibliometrix
-  # files for softwares
-  file_data_pubmed: "./files_type/PubMed_format.txt"                # file process format to Pubmed
-  file_bibliometrix: "./files_type/Bibliometrix_format.xlsx"        # file mapping to bibliometrix
-
+  file_data_error: "./logs/NotProcessed.csv"                        # file not encountered during execution.
+  file_parsing_pubmed: "./output/PubMed_Metadata.csv"               # file extract metada from Pubmed to pubmedfile
+  file_parsing_bibliometrix: "./output/Bibliometrix_Metadata.csv"   # file extract metada from Pubmed to bibliometrix
+  
+  # files for software
+  file_data_pubmed: "./output/PubMed_format.txt"                    # file process format to Pubmed
+  file_bibliometrix: "./output/Bibliometrix_format.xlsx"            # file mapping to bibliometrix
   file_vsviewer: "VosViewer.ris"                                    # file mapping to VosViewer
   file_bibtex: "bibtex.bib"                                         # file references
   file_web_of_science: "web_of_science.txt"                         # file structed web_of_science
