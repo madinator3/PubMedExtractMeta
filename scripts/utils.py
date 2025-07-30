@@ -16,6 +16,7 @@ from pathlib import Path
 CONFIG = None
 FILE_PATHS = None
 PATH_ROOT = None
+OUTPUT_PATH = None
 
 #=============== Functions ==============
 def load_config(config_path):
