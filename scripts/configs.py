@@ -16,7 +16,7 @@ from Bio import Entrez
 
 
 #=============== Importing modules internal to the project ==============
-from scripts.00_utils import save_data_to_file
+from scripts.utils import save_data_to_file
 
 
 #=============== List of elements to export ==============================
