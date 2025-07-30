@@ -35,3 +35,5 @@ __all__ = [
 
 #=============== Initialize the environment ==============================
 initialize_environment()
+
+print(OUTPUT_PATH)

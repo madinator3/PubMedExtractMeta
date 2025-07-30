@@ -6,6 +6,7 @@
 #=============== Libraries ==============
 import yaml
 import os
+import sys
 import time
 import pandas as pd
 import logging
@@ -181,10 +182,10 @@ def initialize_environment():
     global CONFIG, FILE_PATHS, PATH_ROOT, OUTPUT_PATH
 
     # Root path for the application
-    PATH_ROOT = os.path.abspath(os.path.join(os.getcwd(), ".."))
+    PATH_ROOT = os.path.abspath(os.path.join(os.getcwd()))
     sys.path.append(PATH_ROOT)
 
-    config_path = os.path.join(PATH_ROOT, 'config', 'config.yaml')
+    config_path = os.path.join(PATH_ROOT, 'config.yaml')
     CONFIG = load_config(config_path)
     
     configure_logging(PATH_ROOT, CONFIG["logging"])
