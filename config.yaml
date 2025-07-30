@@ -1,6 +1,6 @@
 # API and email configuration
-api_key: "09921aadccbafb8e5913ae1c99e2fafbe00a"                     # API key for accessing the service. Replace with your own key.
-api_email: "leandrorodrigues.s@gmail.com"                           # Email associated with the API for identification purposes.
+pubmed_api_key: "09921aadccbafb8e5913ae1c99e2fafbe00a"                     # API key for accessing the service. Replace with your own key.
+pubmed_api_email: "leandrorodrigues.s@gmail.com"                           # Email associated with the API for identification purposes.
 
 # General configuration
 config:

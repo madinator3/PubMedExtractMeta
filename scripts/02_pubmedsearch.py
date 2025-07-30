@@ -20,6 +20,8 @@ print(project_root)
 from scripts.configs import *
 from scripts.utils import  CONFIG, FILE_PATHS, PATH_ROOT, OUTPUT_PATH
 
+config.load_config(os.path.join(PATH_ROOT, "config.yaml"))
+
 # Acessa as variáveis globais
 print("Configuration:", CONFIG)
 print("Path:", FILE_PATHS)

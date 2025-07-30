@@ -16,11 +16,10 @@ from Bio import Entrez
 
 
 #=============== Importing modules internal to the project ==============
-from scripts.utils import save_data_to_file
+from scripts.utils import initialize_environment, save_data_to_file
 
 
 #=============== List of elements to export ==============================
-# Lista de elementos exportados
 __all__ = [
     "os",
     "sys",
@@ -30,5 +29,9 @@ __all__ = [
     "yaml",
     "pd",
     "Entrez",
+    "initialize_environment",
     "save_data_to_file"
 ]
+
+#=============== Initialize the environment ==============================
+initialize_environment()
