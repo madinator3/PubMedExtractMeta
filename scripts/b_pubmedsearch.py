@@ -21,9 +21,16 @@ from scripts.configs import *
 from scripts.utils import CONFIG, FILE_PATHS, PATH_ROOT, OUTPUT_PATH
 
 
-# Acessa as variáveis globais
+# Checking if the necessary directories exist
 print("Configuration:", CONFIG)
 print("Path:", FILE_PATHS)
 print("Source:", PATH_ROOT)
 print("Output:", OUTPUT_PATH)
 print("File", CONFIG["files"]["file_data_pubmed"])
+
+#================ Import query ==============
+
+from scripts.01_querysetup import full_query
+
+print("Full Query:", full_query)
+
