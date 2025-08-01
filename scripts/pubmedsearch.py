@@ -39,18 +39,21 @@ from scripts.querysetup import full_query
 print("Full Query:", full_query)
 
 
-
+print(CONFIG['pubmed_api_key'])
+print(CONFIG['pubmed_api_email'])
+print(CONFIG['config']['max_tries'])
+print(CONFIG['config']['time_sleep']) 
 
 
 #================ Search PubMed for relevant records
 Entrez.api_key = CONFIG['pubmed_api_key'] # Set your API key for NCBI Entrez. If not set, only 3 queries per second are allowed. 10 queries per seconds otherwise with a valid API key.
-Entrez.email = CONFIG['email']  # Set your email to comply with NCBI's policy 
-Entrez.max_tries = CONFIG['max_tries']  # Set the maximum number of attempts to fetch data from PubMed in case of failure.
-Entrez.sleep_between_tries = CONFIG['time_sleep']  # Set the time to sleep between queries in seconds
-retmax = CONFIG['retmax']  # Set the maximum number of records to retrieve from PubMed in a single query. Max is 10000.
+Entrez.email = CONFIG['pubmed_api_email']  # Set your email to comply with NCBI's policy 
+Entrez.max_tries = CONFIG['config']['max_tries']  # Set the maximum number of attempts to fetch data from PubMed in case of failure.
+Entrez.sleep_between_tries = CONFIG['config']['time_sleep']  # Set the time to sleep between queries in seconds
+retmax = CONFIG['config']['retmax']  # Set the maximum number of records to retrieve from PubMed in a single query. Max is 10000.
 
 
-handle = Entrez.esearch(db='pubmed', retmax=retmax, term=full_query, ma)
+handle = Entrez.esearch(db='pubmed', retmax=retmax, term=full_query)
 record = Entrez.read(handle)
 id_list = record['IdList']
 
@@ -92,4 +95,6 @@ for pmid in id_list:
         })
 
         df = pd.concat([df, new_row], ignore_index=True)
+
+print(df)
 
