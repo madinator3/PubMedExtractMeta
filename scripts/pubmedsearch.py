@@ -39,12 +39,6 @@ from scripts.querysetup import full_query
 print("Full Query:", full_query)
 
 
-print(CONFIG['pubmed_api_key'])
-print(CONFIG['pubmed_api_email'])
-print(CONFIG['config']['max_tries'])
-print(CONFIG['config']['time_sleep']) 
-
-
 #================ Search PubMed for relevant records
 Entrez.api_key = CONFIG['pubmed_api_key'] # Set your API key for NCBI Entrez. If not set, only 3 queries per second are allowed. 10 queries per seconds otherwise with a valid API key.
 Entrez.email = CONFIG['pubmed_api_email']  # Set your email to comply with NCBI's policy 
@@ -98,3 +92,4 @@ for pmid in id_list:
 
 print(df)
 
+#TO DO: Change for loop to function, annotate function, add in DOI extraction, and number of citations extraction, and error handling
