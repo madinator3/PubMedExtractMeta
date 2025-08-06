@@ -13,7 +13,7 @@ import sys
 import pandas as pd
 import json
 from Bio import Entrez
-
+import datetime as dt
 
 #================ Project setup =============================================================
 # Define the project root directory and add it to the system path
@@ -32,6 +32,9 @@ print("Source:", PATH_ROOT)
 print("Output:", OUTPUT_PATH)
 print("File", CONFIG["files"]["file_data_pubmed"])
 
+# Get system date and time
+current_date = dt.date.today().strftime("%Y-%m-%d")
+print("Current Date:", current_date)
 
 #================ Import query =============================================================
 
@@ -142,4 +145,4 @@ print(df)
 from scripts.utils import save_data_to_file
 
 # Save the DataFrame to a CSV file
-save_data_to_file(df,  OUTPUT_PATH+"search_results.csv")
+save_data_to_file(df,  OUTPUT_PATH + "/" + current_date + "_" + "search_results_pubmed.csv")
