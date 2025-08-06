@@ -76,9 +76,9 @@ def save_data_to_file(df, file_path):
     """
     try:
         if not os.path.exists(file_path):
-            df.to_csv(file_path, sep='|', index=False)
+            df.to_csv(file_path, index=False)
         else:
-            df.to_csv(file_path, sep='|', mode='a', header=False, index=False)
+            df.to_csv(file_path, mode='a', header=False, index=False)
     
     except Exception as e:
         logging.error(f"Error saving file: {e}")

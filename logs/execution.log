@@ -140,3 +140,29 @@
 2025-08-06 11:03:13 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\output
 2025-08-06 11:03:13 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\logs
 2025-08-06 11:03:13 - INFO - Environment initialized successfully.C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch
+2025-08-06 11:06:01 - INFO - Logging configuration successfully loaded.
+2025-08-06 11:06:01 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\output
+2025-08-06 11:06:01 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\output
+2025-08-06 11:06:01 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\logs
+2025-08-06 11:06:01 - INFO - Environment initialized successfully.C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch
+2025-08-06 11:21:41 - INFO - Logging configuration successfully loaded.
+2025-08-06 11:21:41 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\output
+2025-08-06 11:21:41 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\output
+2025-08-06 11:21:41 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\logs
+2025-08-06 11:21:41 - INFO - Environment initialized successfully.C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch
+2025-08-06 11:43:23 - INFO - Logging configuration successfully loaded.
+2025-08-06 11:43:23 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\output
+2025-08-06 11:43:23 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\output
+2025-08-06 11:43:23 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\logs
+2025-08-06 11:43:23 - INFO - Environment initialized successfully.C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch
+2025-08-06 11:43:27 - ERROR - Error saving file: [Errno 13] Permission denied: 'C:\\Users\\madis\\Documents\\Coding\\PythonProjects\\AUTOSearch\\output/2025-08-06_search_results_pubmed.csv'
+2025-08-06 11:43:40 - INFO - Logging configuration successfully loaded.
+2025-08-06 11:43:40 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\output
+2025-08-06 11:43:40 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\output
+2025-08-06 11:43:40 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\logs
+2025-08-06 11:43:40 - INFO - Environment initialized successfully.C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch
+2025-08-06 11:44:47 - INFO - Logging configuration successfully loaded.
+2025-08-06 11:44:47 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\output
+2025-08-06 11:44:47 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\output
+2025-08-06 11:44:47 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\logs
+2025-08-06 11:44:47 - INFO - Environment initialized successfully.C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch

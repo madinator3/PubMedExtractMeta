@@ -33,8 +33,8 @@ print("Output:", OUTPUT_PATH)
 print("File", CONFIG["files"]["file_data_pubmed"])
 
 # Get system date and time
-current_date = dt.date.today().strftime("%Y-%m-%d")
-print("Current Date:", current_date)
+current_datetime = dt.datetime.now().strftime("%Y-%m-%d_%H-%M")
+print("Current Date_Time:", current_datetime)
 
 #================ Import query =============================================================
 
@@ -100,17 +100,34 @@ for pmid in id_list:
         url = f"https://www.ncbi.nlm.nih.gov/pubmed/{pmid}"
 
         # Extract DOI if available
-        doi = record['MedlineCitation']['Article']['ELocationID'][1] if 'ELocationID' in record['MedlineCitation']['Article']['ELocationID'] else ''
+        eid_list = record['MedlineCitation']['Article']['ELocationID']
+        prefix = '10.'
+        doi_list = []
+
+        for doi in eid_list:
+            if doi.startswith(prefix):
+                doi_list.append(doi)
+        
+        doi = doi_list[0] if doi_list else ''  # Use the first DOI if available, otherwise an empty string
 
         # Extract Date published
-        date_pub_yr = record['MedlineCitation']['Article']['ArticleDate']['Year'] if 'ArticleDate' in record['MedlineCitation']['Article'] and 'Year' in record['MedlineCitation']['Article']['ArticleDate'] else ''
-        date_pub_month = record['MedlineCitation']['Article']['ArticleDate']['Month'] if 'ArticleDate' in record['MedlineCitation']['Article'] and 'Month' in record['MedlineCitation']['Article']['ArticleDate'] else ''
-        date_pub_day = record['MedlineCitation']['Article']['ArticleDate']['Day'] if 'ArticleDate' in record['MedlineCitation']['Article'] and 'Day' in record['MedlineCitation']['Article']['ArticleDate'] else ''
+        pubdate_list = record['MedlineCitation']['Article']['ArticleDate']
+        for dmy in pubdate_list:
+            if 'Year' in dmy and 'Month' in dmy and 'Day' in dmy:
+                date_pub_yr = dmy['Year']
+                date_pub_month = dmy['Month']
+                date_pub_day = dmy['Day']
+                break
+            else:
+                date_pub_yr = ''
+                date_pub_month = ''
+                date_pub_day = ''
 
         # Extract last revised date
         date_revise_yr = record['MedlineCitation']['DateRevised']['Year'] if 'DateRevised' in record['MedlineCitation'] and 'Year' in record['MedlineCitation']['DateRevised'] else ''
         date_revise_month = record['MedlineCitation']['DateRevised']['Month'] if 'DateRevised' in record['MedlineCitation'] and 'Month' in record['MedlineCitation']['DateRevised'] else ''
         date_revise_day = record['MedlineCitation']['DateRevised']['Day'] if 'DateRevised' in record['MedlineCitation'] and 'Day' in record['MedlineCitation']['DateRevised'] else ''
+        
         # Extract number of citations if available
 
 
@@ -138,11 +155,11 @@ for pmid in id_list:
 
 print(df)
 
-#TO DO: Change for loop to function, annotate function, add in DOI extraction, and number of citations extraction, and error handling
+#TO DO: Change for loop to function, annotate function,  and number of citations extraction, and error handling
 
 #================ Export results =============================================================
 
 from scripts.utils import save_data_to_file
 
 # Save the DataFrame to a CSV file
-save_data_to_file(df,  OUTPUT_PATH + "/" + current_date + "_" + "search_results_pubmed.csv")
+save_data_to_file(df,  OUTPUT_PATH + "/" + current_datetime + "_" + "search_results_pubmed.csv")
