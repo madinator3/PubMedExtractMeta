@@ -55,13 +55,13 @@ retmax = CONFIG['config']['retmax']  # Set the maximum number of records to retr
 handle = Entrez.esearch(db='pubmed', retmax=retmax, term=full_query)
 record = Entrez.read(handle)
 id_list = record['IdList']
-print(id_list)
+
 
 # DataFrame to store the extracted data
 df = pd.DataFrame(columns=['PMID', 'Title', 'Abstract', 'Authors','Affiliations',
                            'Journal_Title', 'Journal_ISO', 'Keywords', 'Date_Pub_Year', 
                            'Date_Pub_Month', 'Date_Pub_Day', 'Date_Revise_Year', 
-                           'Date_Revise_Month', 'Date_Revise_Day', 'URL', 'DOI'])
+                           'Date_Revise_Month', 'Date_Revise_Day', 'Grants', 'URL', 'DOI'])
 
 # Fetch information for each record in the id_list
 for pmid in id_list:
@@ -86,7 +86,9 @@ for pmid in id_list:
         affiliations = []
         for author in record['MedlineCitation']['Article']['AuthorList']:
             if 'AffiliationInfo' in author and author['AffiliationInfo']:
-                affiliations.append(author['AffiliationInfo'][0]['Affiliation'])
+                for affiliation in author['AffiliationInfo']:
+                    if 'Affiliation' in affiliation:
+                        affiliations.append(affiliation['Affiliation'])
         affiliations = '; '.join(set(affiliations))
 
         # Extract journal information
@@ -128,8 +130,23 @@ for pmid in id_list:
         date_revise_month = record['MedlineCitation']['DateRevised']['Month'] if 'DateRevised' in record['MedlineCitation'] and 'Month' in record['MedlineCitation']['DateRevised'] else ''
         date_revise_day = record['MedlineCitation']['DateRevised']['Day'] if 'DateRevised' in record['MedlineCitation'] and 'Day' in record['MedlineCitation']['DateRevised'] else ''
         
-        # Extract number of citations if available
-
+        # Extract Grants
+        grants = []
+        for gt in record['MedlineCitation']['Article'].get('GrantList', []):
+            # Extracting GrantID, Acronym, and Agency
+            if 'GrantID' in gt:
+                gID = gt.get('GrantID',"")  # ['GrantID']
+            if 'Acronym' in gt:
+                acronym = gt['Acronym']
+            if 'Agency' in gt:
+                agency = gt['Agency']
+            if 'Country' in gt:
+                country = gt['Country']
+            
+            grant_info = f"{gID} _ {acronym} _ {agency} _ {country}" 
+            grants.append(grant_info)
+  
+        grants = '; '.join(set(grants))
 
         # Create a new row with the extracted data
         new_row = pd.DataFrame({
@@ -147,12 +164,14 @@ for pmid in id_list:
             'Date_Revise_Year': [date_revise_yr],
             'Date_Revise_Month': [date_revise_month],
             'Date_Revise_Day': [date_revise_day],
+            'Grants': [grants],
             'URL': [url],
             'DOI': [doi]
         })
 
         df = pd.concat([df, new_row], ignore_index=True)
 
+print(grants)
 print(df)
 
 #TO DO: Change for loop to function, annotate function,  and number of citations extraction, and error handling
