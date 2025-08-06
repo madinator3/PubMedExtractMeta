@@ -135,15 +135,15 @@ for pmid in id_list:
         for gt in record['MedlineCitation']['Article'].get('GrantList', []):
             # Extracting GrantID, Acronym, and Agency
             if 'GrantID' in gt:
-                gID = gt.get('GrantID',"")  # ['GrantID']
+                gID = gt.get('GrantID',"NAN")  
             if 'Acronym' in gt:
-                acronym = gt['Acronym']
+                acronym = gt.get('Acronym',"NAN")  
             if 'Agency' in gt:
-                agency = gt['Agency']
+                agency = gt.get('Agency',"NAN")  
             if 'Country' in gt:
-                country = gt['Country']
+                country = gt.get('Country',"NAN")
             
-            grant_info = f"{gID} _ {acronym} _ {agency} _ {country}" 
+            grant_info = f"{gID}_{acronym}_{agency}_{country}" 
             grants.append(grant_info)
   
         grants = '; '.join(set(grants))
