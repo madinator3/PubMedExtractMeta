@@ -136,3 +136,10 @@ for pmid in id_list:
 print(df)
 
 #TO DO: Change for loop to function, annotate function, add in DOI extraction, and number of citations extraction, and error handling
+
+#================ Export results =============================================================
+
+from scripts.utils import save_data_to_file
+
+# Save the DataFrame to a CSV file
+save_data_to_file(df,  OUTPUT_PATH+"search_results.csv")
