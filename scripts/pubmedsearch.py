@@ -176,13 +176,13 @@ print(df)
 import requests
 
 BASE_URL = "https://icite.od.nih.gov/api"
-field_list = ['pmid', 'year', 'title', 'apt', 'relative_citation_ratio', 'cited_by_clin']
+parameter_list = ['pmid', 'doi', 'citation_count', 'cited_by_clin', 'cited_by']
 MAX_PMIDS_PER_REQUEST = 1000
 sleep = 0.05
 api_url = f'{BASE_URL}/pubs'
 
 
-def get_icites(self, pmid_list=[], field_list=[], timeout=500):
+def get_icites(pmid_list=[], field_list=[], timeout=500):
     """
     Fetches publication data in bulk. If pmid_list exceeds 1000, it splits the requests and merges the results.
      Parameters:
@@ -229,10 +229,43 @@ def get_icites(self, pmid_list=[], field_list=[], timeout=500):
         'data': responses_data
     }
 
-get_icites(id_list, field_list)
+citations = get_icites(pmid_list=id_list, field_list=parameter_list)
 
-print(id_list)
- 
+df_cite = pd.DataFrame(columns=['PMID', 'DOI', 'Citation_Count', 'Cited_By_Clin', 'Cited_By'])
+
+# Process each PubMed article in the response
+for record in citations['data']:
+    # Print the record in a formatted JSON style
+    print(json.dumps(record, indent=4, default=str))  # default=str handles types JSON can't serialize like datetime
+
+    # Extract PMID information
+    pmid = record['pmid']
+
+    # Extract DOI information
+    doi = record['doi']
+
+    # Extract DOI information
+    citation_count = record['citation_count']
+
+    # Extract Cited By Clin List
+    cited_by_clin = record['cited_by_clin']
+
+    # Extract Cited By List
+    cited_by = record['cited_by']
+
+    # Create a new row with the extracted data
+    new_row = pd.DataFrame({
+        'PMID': [pmid],
+        'DOI': [doi],
+        'Citation_Count': [citation_count],
+        'Cited_By_Clin': [cited_by_clin],
+        'Cited_By': [cited_by]
+        })
+
+    df_cite = pd.concat([df_cite, new_row], ignore_index=True)
+
+
+df_final = pd.merge(df, df_cite, on='DOI', how='outer')
 
 #TO DO: Change for loop to function, annotate function,  and number of citations extraction
 #================ Export results =============================================================
@@ -240,4 +273,4 @@ print(id_list)
 from scripts.utils import save_data_to_file
 
 # Save the DataFrame to a CSV file
-save_data_to_file(df,  OUTPUT_PATH + "/" + current_datetime + "_" + "search_results_pubmed.csv")
+save_data_to_file(df_final,  OUTPUT_PATH + "/" + current_datetime + "_" + "search_results_pubmed.csv")
