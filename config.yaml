@@ -2,15 +2,22 @@
 pubmed_api_key: "09921aadccbafb8e5913ae1c99e2fafbe00a"                     # API key for accessing the service. Replace with your own key.
 pubmed_api_email: "leandrorodrigues.s@gmail.com"                           # Email associated with the API for identification purposes.
 
-# General configuration
-config:
+# General configuration for pubmed
+pubmed_config:
   time_sleep: 15                                                     # Time between queries in PubMed in seconds. Default is 15 seconds
   max_tries: 3                                                       # Maximum number of attempts to fetch data from PubMed in case of failure.
   retmax: 10000                                                      # Max number of records to retrieve from PubMed in a single query. Max is 10000
   file_save_periodically: 10                                         # Save results periodically files csv incremental
-  save_xml: true                                                     # Salvar xml (true/false)
+  save_xml: true                                                     # Save to xml true/false
   search: 0.1          
   search_article_one: true                                           #procura artigo pelo doi ou pelo titulo           
+
+# General configuration for ArXiv 
+arxiv_config:
+  time_sleep: 3                                                       # Time between queries in PubMed in seconds. Default is 3 seconds
+  retmax: 30000                                                       # Max number of records to retrieve from PubMed in a single query. Max is 30000
+  results_per_iteration: 2000                                         # Must be iterated through. 2000 can be retrieved at a time to a maximum of 2000.
+  max_tries: 5
 
 # Directory settings
 directories:
@@ -20,16 +27,16 @@ directories:
 
 # File settings
 files:
-  file_data_error: "./logs/NotProcessed.csv"                          # file not encountered during execution.
-  file_parsing_pubmed: "./output/PubMed_Metadata.csv"                 # file extract metada from Pubmed to pubmedfile
-  file_parsing_bibliometrix: "./output/Bibliometrix_Metadata.csv"     # file extract metada from Pubmed to bibliometrix
+  file_data_error: "./logs/NotProcessed.csv"                            # file not encountered during execution.
+  file_parsing_pubmed: "./output/PubMed_Metadata.csv"                   # file extract metada from Pubmed to pubmedfile
+  file_parsing_bibliometrix: "./output/Bibliometrix_Metadata.csv"       # file extract metada from Pubmed to bibliometrix
   
   # files for software
-  file_data_pubmed: "./output/PubMed_format.txt"                     # file process format to Pubmed
-  file_bibliometrix: "./output/Bibliometrix_format.xlsx"             # file mapping to bibliometrix
-  file_vsviewer: "VosViewer.ris"                                     # file mapping to VosViewer
-  file_bibtex: "bibtex.bib"                                          # file references
-  file_web_of_science: "web_of_science.txt"                          # file structed web_of_science
+  file_data_pubmed: "./output/PubMed_format.txt"                       # file process format to Pubmed
+  file_bibliometrix: "./output/Bibliometrix_format.xlsx"               # file mapping to bibliometrix
+  file_vsviewer: "VosViewer.ris"                                       # file mapping to VosViewer
+  file_bibtex: "bibtex.bib"                                            # file references
+  file_web_of_science: "web_of_science.txt"                            # file structed web_of_science
 
 
 # Logging configuration

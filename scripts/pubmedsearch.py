@@ -267,7 +267,7 @@ for record in citations['data']:
 
 df_final = pd.merge(df, df_cite, on='DOI', how='outer')
 
-#TO DO: Change for loop to function, annotate function,  and number of citations extraction
+#TO DO: annotate function, move citation information function into utils and its configs in configs.yaml
 #================ Export results =============================================================
 
 from scripts.utils import save_data_to_file
