@@ -33,6 +33,7 @@ files:
   
   # files for software
   file_data_pubmed: "./output/PubMed_format.txt"                       # file process format to Pubmed
+  file_data_arxiv: "./output/Arxiv_format.txt"                         # file process format to Arxiv
   file_bibliometrix: "./output/Bibliometrix_format.xlsx"               # file mapping to bibliometrix
   file_vsviewer: "VosViewer.ris"                                       # file mapping to VosViewer
   file_bibtex: "bibtex.bib"                                            # file references

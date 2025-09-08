@@ -316,3 +316,137 @@
 2025-08-07 13:05:14 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\output
 2025-08-07 13:05:14 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\logs
 2025-08-07 13:05:14 - INFO - Environment initialized successfully.C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch
+2025-09-08 13:25:55 - INFO - Logging configuration successfully loaded.
+2025-09-08 13:25:55 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\output
+2025-09-08 13:25:55 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\output
+2025-09-08 13:25:55 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\logs
+2025-09-08 13:25:55 - INFO - Environment initialized successfully.C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch
+2025-09-08 13:33:07 - INFO - Logging configuration successfully loaded.
+2025-09-08 13:33:07 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\output
+2025-09-08 13:33:07 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\output
+2025-09-08 13:33:07 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\logs
+2025-09-08 13:33:07 - INFO - Environment initialized successfully.C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch
+2025-09-08 13:33:43 - INFO - Logging configuration successfully loaded.
+2025-09-08 13:33:43 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\output
+2025-09-08 13:33:43 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\output
+2025-09-08 13:33:43 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\logs
+2025-09-08 13:33:43 - INFO - Environment initialized successfully.C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch
+2025-09-08 13:34:13 - INFO - Logging configuration successfully loaded.
+2025-09-08 13:34:13 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\output
+2025-09-08 13:34:13 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\output
+2025-09-08 13:34:13 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\logs
+2025-09-08 13:34:13 - INFO - Environment initialized successfully.C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch
+2025-09-08 13:34:13 - INFO - Requesting page (first: True, try: 0): https://export.arxiv.org/api/query?search_query=%28Bryan_Holland+OR+Mehmet_Oz+OR+Anthony_Fauci%29+AND+%28all%3ARNA+OR+all%3Acardiovascular%29+AND+submittedDate%3A%5B20120301%2BTO%2B20241231%5D&id_list=&sortBy=relevance&sortOrder=descending&start=0&max_results=2000
+2025-09-08 13:34:13 - INFO - Got empty first page; stopping generation
+2025-09-08 13:38:17 - INFO - Logging configuration successfully loaded.
+2025-09-08 13:38:17 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\output
+2025-09-08 13:38:17 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\output
+2025-09-08 13:38:17 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\logs
+2025-09-08 13:38:17 - INFO - Environment initialized successfully.C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch
+2025-09-08 13:38:17 - INFO - Requesting page (first: True, try: 0): https://export.arxiv.org/api/query?search_query=%28Bryan_Holland+OR+Mehmet_Oz+OR+Anthony_Fauci%29+AND+%28all%3ARNA+OR+all%3Acardiovascular%29+AND+submittedDate%3A%5B20120301%2BTO%2B20241231%5D&id_list=&sortBy=submittedDate&sortOrder=descending&start=0&max_results=2000
+2025-09-08 13:38:17 - INFO - Got empty first page; stopping generation
+2025-09-08 13:38:46 - INFO - Logging configuration successfully loaded.
+2025-09-08 13:38:46 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\output
+2025-09-08 13:38:46 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\output
+2025-09-08 13:38:46 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\logs
+2025-09-08 13:38:46 - INFO - Environment initialized successfully.C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch
+2025-09-08 13:38:46 - INFO - Requesting page (first: True, try: 0): https://export.arxiv.org/api/query?search_query=%28Bryan_Holland+OR+Mehmet_Oz+OR+Anthony_Fauci%29+AND+%28all%3ARNA+OR+all%3Acardiovascular%29+AND+submittedDate%3A%5B20120301%2BTO%2B20241231%5D&id_list=&sortBy=submittedDate&sortOrder=descending&start=0&max_results=2000
+2025-09-08 13:38:46 - INFO - Got empty first page; stopping generation
+2025-09-08 13:45:19 - INFO - Logging configuration successfully loaded.
+2025-09-08 13:45:19 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\output
+2025-09-08 13:45:19 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\output
+2025-09-08 13:45:19 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\logs
+2025-09-08 13:45:19 - INFO - Environment initialized successfully.C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch
+2025-09-08 13:45:19 - INFO - Requesting page (first: True, try: 0): https://export.arxiv.org/api/query?search_query=%28all%3Agenomics+OR+all%3Acardiovascular%29+AND+submittedDate%3A%5B20120301%2BTO%2B20250908%5D&id_list=&sortBy=submittedDate&sortOrder=descending&start=0&max_results=2000
+2025-09-08 13:45:19 - INFO - Got empty first page; stopping generation
+2025-09-08 13:50:20 - INFO - Logging configuration successfully loaded.
+2025-09-08 13:50:20 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\output
+2025-09-08 13:50:20 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\output
+2025-09-08 13:50:20 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\logs
+2025-09-08 13:50:20 - INFO - Environment initialized successfully.C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch
+2025-09-08 13:50:20 - INFO - Requesting page (first: True, try: 0): https://export.arxiv.org/api/query?search_query=all%3Acardiovascular+AND+all%3Agenomics&id_list=&sortBy=submittedDate&sortOrder=descending&start=0&max_results=2000
+2025-09-08 13:50:21 - INFO - Got first page: 21 of 21 total results
+2025-09-08 13:51:53 - INFO - Logging configuration successfully loaded.
+2025-09-08 13:51:53 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\output
+2025-09-08 13:51:53 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\output
+2025-09-08 13:51:53 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\logs
+2025-09-08 13:51:53 - INFO - Environment initialized successfully.C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch
+2025-09-08 13:51:53 - INFO - Requesting page (first: True, try: 0): https://export.arxiv.org/api/query?search_query=%28all%3Agenomics+OR+all%3Acardiovascular%29+AND+submittedDate%3A%5B20120301%2BTO%2B20250908%5D&id_list=&sortBy=submittedDate&sortOrder=descending&start=0&max_results=2000
+2025-09-08 13:51:53 - INFO - Got empty first page; stopping generation
+2025-09-08 13:53:04 - INFO - Logging configuration successfully loaded.
+2025-09-08 13:53:04 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\output
+2025-09-08 13:53:04 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\output
+2025-09-08 13:53:04 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\logs
+2025-09-08 13:53:04 - INFO - Environment initialized successfully.C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch
+2025-09-08 13:53:04 - INFO - Requesting page (first: True, try: 0): https://export.arxiv.org/api/query?search_query=%28all%3Agenomics+OR+all%3Acardiovascular%29+AND+submittedDate%3A%5B20120301%2BTO%2B20250908%5D&id_list=&sortBy=submittedDate&sortOrder=descending&start=0&max_results=2000
+2025-09-08 13:53:05 - INFO - Got empty first page; stopping generation
+2025-09-08 13:59:57 - INFO - Logging configuration successfully loaded.
+2025-09-08 13:59:57 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\output
+2025-09-08 13:59:57 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\output
+2025-09-08 13:59:57 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\logs
+2025-09-08 13:59:57 - INFO - Environment initialized successfully.C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch
+2025-09-08 13:59:57 - INFO - Requesting page (first: True, try: 0): https://export.arxiv.org/api/query?search_query=all%3Agenomics+OR+all%3Acardiovascular+AND+submittedDate%3A%5B20120301%2BTO%2B20250908%5D&id_list=&sortBy=submittedDate&sortOrder=descending&start=0&max_results=2000
+2025-09-08 13:59:57 - INFO - Got empty first page; stopping generation
+2025-09-08 14:00:41 - INFO - Logging configuration successfully loaded.
+2025-09-08 14:00:41 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\output
+2025-09-08 14:00:41 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\output
+2025-09-08 14:00:41 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\logs
+2025-09-08 14:00:41 - INFO - Environment initialized successfully.C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch
+2025-09-08 14:00:41 - INFO - Requesting page (first: True, try: 0): https://export.arxiv.org/api/query?search_query=all%3Agenomics+OR+all%3Acardiovascular+AND+submittedDate%3A%5B201203010000%2BTO%2B202509080000%5D&id_list=&sortBy=submittedDate&sortOrder=descending&start=0&max_results=2000
+2025-09-08 14:00:41 - INFO - Got empty first page; stopping generation
+2025-09-08 14:00:53 - INFO - Logging configuration successfully loaded.
+2025-09-08 14:00:53 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\output
+2025-09-08 14:00:53 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\output
+2025-09-08 14:00:53 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\logs
+2025-09-08 14:00:53 - INFO - Environment initialized successfully.C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch
+2025-09-08 14:00:53 - INFO - Requesting page (first: True, try: 0): https://export.arxiv.org/api/query?search_query=all%3Agenomics+OR+all%3Acardiovascular&id_list=&sortBy=submittedDate&sortOrder=descending&start=0&max_results=2000
+2025-09-08 14:01:06 - INFO - Got first page: 2000 of 9356 total results
+2025-09-08 14:01:06 - INFO - Sleeping: 1.166601 seconds
+2025-09-08 14:01:08 - INFO - Requesting page (first: False, try: 0): https://export.arxiv.org/api/query?search_query=all%3Agenomics+OR+all%3Acardiovascular&id_list=&sortBy=submittedDate&sortOrder=descending&start=2000&max_results=2000
+2025-09-08 14:01:45 - INFO - Logging configuration successfully loaded.
+2025-09-08 14:01:45 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\output
+2025-09-08 14:01:45 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\output
+2025-09-08 14:01:45 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\logs
+2025-09-08 14:01:45 - INFO - Environment initialized successfully.C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch
+2025-09-08 14:01:45 - INFO - Requesting page (first: True, try: 0): https://export.arxiv.org/api/query?search_query=all%3Acardiovascular+AND+all%3Agenomics&id_list=&sortBy=submittedDate&sortOrder=descending&start=0&max_results=2000
+2025-09-08 14:01:45 - INFO - Got first page: 21 of 21 total results
+2025-09-08 14:23:43 - INFO - Logging configuration successfully loaded.
+2025-09-08 14:23:43 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\output
+2025-09-08 14:23:43 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\output
+2025-09-08 14:23:43 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\logs
+2025-09-08 14:23:43 - INFO - Environment initialized successfully.C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch
+2025-09-08 14:35:45 - INFO - Logging configuration successfully loaded.
+2025-09-08 14:35:45 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\output
+2025-09-08 14:35:45 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\output
+2025-09-08 14:35:45 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\logs
+2025-09-08 14:35:45 - INFO - Environment initialized successfully.C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch
+2025-09-08 14:45:19 - INFO - Logging configuration successfully loaded.
+2025-09-08 14:45:19 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\output
+2025-09-08 14:45:19 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\output
+2025-09-08 14:45:19 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\logs
+2025-09-08 14:45:19 - INFO - Environment initialized successfully.C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch
+2025-09-08 14:49:41 - INFO - Logging configuration successfully loaded.
+2025-09-08 14:49:41 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\output
+2025-09-08 14:49:41 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\output
+2025-09-08 14:49:41 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\logs
+2025-09-08 14:49:41 - INFO - Environment initialized successfully.C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch
+2025-09-08 14:50:33 - INFO - Logging configuration successfully loaded.
+2025-09-08 14:50:33 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\output
+2025-09-08 14:50:33 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\output
+2025-09-08 14:50:33 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\logs
+2025-09-08 14:50:33 - INFO - Environment initialized successfully.C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch
+2025-09-08 14:53:33 - INFO - Logging configuration successfully loaded.
+2025-09-08 14:53:33 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\output
+2025-09-08 14:53:33 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\output
+2025-09-08 14:53:33 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\logs
+2025-09-08 14:53:33 - INFO - Environment initialized successfully.C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch
+2025-09-08 14:53:44 - INFO - Logging configuration successfully loaded.
+2025-09-08 14:53:44 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\output
+2025-09-08 14:53:44 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\output
+2025-09-08 14:53:44 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\logs
+2025-09-08 14:53:44 - INFO - Environment initialized successfully.C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch
+2025-09-08 14:53:59 - INFO - Logging configuration successfully loaded.
+2025-09-08 14:53:59 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\output
+2025-09-08 14:53:59 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\output
+2025-09-08 14:53:59 - INFO - Directory already exists: C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch\logs
+2025-09-08 14:53:59 - INFO - Environment initialized successfully.C:\Users\madis\Documents\Coding\PythonProjects\AUTOSearch

@@ -5,15 +5,14 @@
 
 #================ QUERY PARAMETERS ========================================
 # Define lists of authors
-authors = ['Bryan Holland', 'Mehmet Oz', 'Anthony Fauci']  # Example authors, adjust as needed
+authors = []  # Example authors, adjust as needed
 
 # Define list of topics
-topics = ['RNA', 'cardiovascular']  # Example topics, adjust as needed
+topics = ['genomics']  # Example topics, adjust as needed
 
 # Define date range
-date_start = '2012/03/01'
-date_end = '2024/12/31'
-
+date_start = '2025/01/01'
+date_end = '2025/09/08'
 
 #================ QUERY FORMATTING ========================================
 # Build the query dynamically based on the available authors and topics.
@@ -48,7 +47,7 @@ def pubmed_query(authors, topics, date_start, date_end):
 
 def arxiv_query(authors, topics, date_start, date_end):
     '''
-    Constructs a PubMed query string based on authors, topics, and date range.
+    Constructs a ArXiV query string based on authors, topics, and date range.
 
     authors: List of author names. E.g., ['Author One', 'Author Two']
     topics: List of topics/keywords. E.g., ['cancer', 'diabetes']
@@ -62,18 +61,18 @@ def arxiv_query(authors, topics, date_start, date_end):
     if authors:
         author_queries = ['au:{}'.format(author) for author in authors]
         author_queries = map(lambda authors: authors.replace(' ', '_'), authors)
-        queries.append('(' + ' OR '.join(author_queries) + ')')
+        queries.append('+AND+'.join(author_queries))
 
     if topics:
         topic_queries = ['all:{}'.format(topic) for topic in topics]
-        queries.append('(' + ' OR '.join(topic_queries) + ')')
+        queries.append('+AND+'.join(topic_queries))
 
     if date_start and date_end:
         date_start_arxiv = date_start.replace('/', '')
         date_end_arxiv = date_end.replace('/', '')
         date_range = 'submittedDate:' + '[' + date_start_arxiv + '+TO+' + date_end_arxiv + ']' 
 
-    full_query = ' AND '.join(queries) + ' AND ' + date_range
+    full_query = ' AND '.join(queries) + '+AND+' + date_range
 
     return full_query
 
