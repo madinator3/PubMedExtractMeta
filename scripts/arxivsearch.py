@@ -5,6 +5,8 @@
 # https://pypi.org/project/arxiv/
 # https://info.arxiv.org/help/api/user-manual.html#query_details
 # https://info.arxiv.org/help/api/examples/python_arXiv_parsing_example.txt
+# https://mukhlisraza.medium.com/how-to-export-arxiv-papers-with-pythons-atom-api-e084c2970484
+
 
 
 
