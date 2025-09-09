@@ -52,83 +52,89 @@ print("Full Query:", arxivq)
 #================ Search Arxiv for relevant records ========================================
 arxiv_api_url = "http://export.arxiv.org/api/query?search_query="
 
-# Set up Arxiv parameters
-start = 0
-max_tries = CONFIG['arxiv_config']['max_tries']  # Set the maximum number of attempts to fetch data from PubMed in case of failure.
-sleep_between_tries = CONFIG['arxiv_config']['time_sleep']  # Set the time to sleep between queries in seconds
-retmax = CONFIG['arxiv_config']['retmax']  # Set the maximum number of records to retrieve from PubMed in a single query. Max is 30000.
-results_per_iteration = CONFIG['arxiv_config']['results_per_iteration']  # Number of results to fetch per iteration
-
-
-params = '%s&start=%i&max_results=%i' % (arxivq,
-                                        start,
-                                        results_per_iteration)
-
-url = arxiv_api_url + params
-
-print("Query URL:", url)
-# perform a GET request using the base_url and query
-# response = urllib.request.urlopen(arxiv_api_url+query).read()
-
-# # parse the response using feedparser
-# feed = feedparser.parse(response)
-
-# # print out feed information
-# print('Feed title: %s' % feed.feed.title)
-# print('Feed last updated: %s' % feed.feed.updated)
-
-# # print opensearch metadata
-# print('totalResults for this query: %s' % feed.feed.opensearch_totalresults)
-# print('itemsPerPage for this query: %s' % feed.feed.opensearch_itemsperpage)
-# print('startIndex for this query: %s'   % feed.feed.opensearch_startindex)
-# q = (
-#   "all:((retrieval augmented generation OR RAG) OR (multi agent))"
-#   "AND all:(multimodal)"
-# )
-
-# params = {
-#     'search_query': arxivq,
-#     'start': start,
-#     'max_results': results_per_iteration,
-# }
-
-# url = "http://export.arxiv.org/api/query?" + urllib.parse.urlencode(params)
-
-request = urllib.request.Request(url)
-
-with urllib.request.urlopen(request) as response:
-    xml = response.read().decode('utf-8')
-
-root = ET.fromstring(xml)
 ns   = {'atom': 'http://www.w3.org/2005/Atom',
         'arxiv': 'http://arxiv.org/schemas/atom'}
-entries = root.findall('atom:entry', ns)
 
-print(f"Found {len(entries)} records from arXiv")
+# Set up Arxiv parameters
+start = 0 # Start at the first record
+max_tries = CONFIG['arxiv_config']['max_tries']  # Set the maximum number of attempts to fetch data from PubMed in case of failure.
+sleep_between_tries = CONFIG['arxiv_config']['time_sleep']  # Set the time to sleep between queries in seconds
+total_results = CONFIG['arxiv_config']['retmax']  # Set the maximum number of records to retrieve from PubMed in a single query. Max is 30000.
+results_per_iteration = CONFIG['arxiv_config']['results_per_iteration']  # Number of results to fetch per iteration
 
-# Write out to CSV
-with open('arXiv.csv', 'w', newline='', encoding='utf-8') as csvfile:
-    writer = csv.writer(csvfile)
-    # header row
-    writer.writerow(['ARXIVID', 'Title', 'Abstract', 'Authors', 'Affiliations', 'Date_published', 'URL'])
+# DataFrame to store the extracted data
+df = pd.DataFrame(columns=['ARXIVID', 'Title', 'Abstract', 'Authors', 'Affiliations', 
+                           'Date_published', 'URL'])
+
+for i in range(start,total_results,results_per_iteration):
+    
+    print("Results %i - %i" % (i,i+results_per_iteration))
+
+    params = '%s&start=%i&max_results=%i' % (arxivq,
+                                            i,
+                                            results_per_iteration)
+
+    url = arxiv_api_url + params
+
+    print("Query URL:", url)
+
+    request = urllib.request.Request(url)
+
+    with urllib.request.urlopen(request) as response:
+        xml = response.read().decode('utf-8')
+
+    root = ET.fromstring(xml)
+    entries = root.findall('atom:entry', ns)
+
+    # Fetch information for each record in the id_list
     for e in entries:
-        eid       = e.find('atom:id', ns).text.strip().replace('http://arxiv.org/abs/', '')
-        title     = e.find('atom:title', ns).text.strip().replace('\n', ' ')
-        abstract     = e.find('atom:summary', ns).text.strip().replace('\n', ' ')
-        
-        authors = []
-        for author in e.findall('atom:author', ns):
-            name = author.find('atom:name', ns).text
-            authors.append(name)
-        authors = '; '.join(authors)
+            eid       = e.find('atom:id', ns).text.strip().replace('http://arxiv.org/abs/', '')
+            
+            title     = e.find('atom:title', ns).text.strip().replace('\n', ' ')
+            
+            abstract     = e.find('atom:summary', ns).text.strip().replace('\n', ' ')
+            
+            authors = []
+            for author in e.findall('atom:author', ns):
+                name = author.find('atom:name', ns).text
+                authors.append(name)
+            authors = '; '.join(authors)
 
-        affiliations = []
-        for author in e.findall('atom:author', ns):
-            aff = author.find('arxiv:affiliation', ns)
-            if aff is not None and aff.text:
-                affiliations.append(aff.text.strip())
-        affiliations = '; '.join(affiliations)
+            affiliations = []
+            for author in e.findall('atom:author', ns):
+                aff = author.find('arxiv:affiliation', ns)
+                if aff is not None and aff.text:
+                    affiliations.append(aff.text.strip())
+            affiliations = '; '.join(affiliations)
 
-        published = e.find('atom:published', ns).text
-        link      = e.find("atom:link[@type='text/html']", ns).attrib['href']
-        writer.writerow([eid, title, abstract, authors, affiliations, published, link])
+            published = e.find('atom:published', ns).text
+
+            link      = e.find("atom:link[@type='text/html']", ns).attrib['href']
+
+            # Create a new row with the extracted data
+            new_row = pd.DataFrame({
+                'ARXIVID': [eid],
+                'Title': [title],
+                'Abstract': [abstract],
+                'Authors': [authors],
+                'Affiliations': [affiliations],
+                'Date_published': [published],
+                'URL': [link],
+            })
+
+            df = pd.concat([df, new_row], ignore_index=True)
+    
+    print(f"Found {len(entries)} records from arXiv")
+
+    # Rest before hitting the api again
+    print('Sleeping for %i seconds' % sleep_between_tries)
+    time.sleep(sleep_between_tries)
+
+print(df)
+
+#================ Export results =============================================================
+
+from scripts.utils import save_data_to_file
+
+# Save the DataFrame to a CSV file
+save_data_to_file(df,  OUTPUT_PATH + "/" + current_datetime + "_" + "search_results_arxiv.csv")
