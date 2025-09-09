@@ -132,6 +132,7 @@ for i in range(start,total_results,results_per_iteration):
 
 print(df)
 
+#TO DO: EXTRACT DOI IF POSSIBLE AND SCRAPE AFFILIATIONS FROM PDFs
 #================ Export results =============================================================
 
 from scripts.utils import save_data_to_file
