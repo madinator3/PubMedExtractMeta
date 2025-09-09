@@ -125,8 +125,8 @@ with open('arXiv.csv', 'w', newline='', encoding='utf-8') as csvfile:
         affiliations = []
         for author in e.findall('atom:author', ns):
             aff = author.find('arxiv:affiliation', ns)
-            if aff is not None:
-                affiliations.append(aff.text)
+            if aff is not None and aff.text:
+                affiliations.append(aff.text.strip())
         affiliations = '; '.join(affiliations)
 
         published = e.find('atom:published', ns).text
