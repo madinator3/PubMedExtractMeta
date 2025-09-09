@@ -17,8 +17,9 @@ import sys
 import pandas as pd
 import feedparser
 import urllib
-import json
+import xml.etree.ElementTree as ET
 import datetime as dt
+import csv
 
 #================ Project setup =============================================================
 # Define the project root directory and add it to the system path
@@ -59,26 +60,75 @@ retmax = CONFIG['arxiv_config']['retmax']  # Set the maximum number of records t
 results_per_iteration = CONFIG['arxiv_config']['results_per_iteration']  # Number of results to fetch per iteration
 
 
-query = '%s&start=%i&max_results=%i' % (arxivq,
+params = '%s&start=%i&max_results=%i' % (arxivq,
                                         start,
                                         results_per_iteration)
 
-# This is a hack to expose both of these namespaces in
-# feedparser v4.1
-#feedparser._FeedParserMixin.namespaces['http://a9.com/-/spec/opensearch/1.1/'] = 'opensearch'
-#feedparser._FeedParserMixin.namespaces['http://arxiv.org/schemas/atom'] = 'arxiv'
+url = arxiv_api_url + params
 
+print("Query URL:", url)
 # perform a GET request using the base_url and query
-response = urllib.request.urlopen(arxiv_api_url+query).read()
+# response = urllib.request.urlopen(arxiv_api_url+query).read()
 
-# parse the response using feedparser
-feed = feedparser.parse(response)
+# # parse the response using feedparser
+# feed = feedparser.parse(response)
 
-# print out feed information
-print('Feed title: %s' % feed.feed.title)
-print('Feed last updated: %s' % feed.feed.updated)
+# # print out feed information
+# print('Feed title: %s' % feed.feed.title)
+# print('Feed last updated: %s' % feed.feed.updated)
 
-# print opensearch metadata
-print('totalResults for this query: %s' % feed.feed.opensearch_totalresults)
-print('itemsPerPage for this query: %s' % feed.feed.opensearch_itemsperpage)
-print('startIndex for this query: %s'   % feed.feed.opensearch_startindex)
+# # print opensearch metadata
+# print('totalResults for this query: %s' % feed.feed.opensearch_totalresults)
+# print('itemsPerPage for this query: %s' % feed.feed.opensearch_itemsperpage)
+# print('startIndex for this query: %s'   % feed.feed.opensearch_startindex)
+# q = (
+#   "all:((retrieval augmented generation OR RAG) OR (multi agent))"
+#   "AND all:(multimodal)"
+# )
+
+# params = {
+#     'search_query': arxivq,
+#     'start': start,
+#     'max_results': results_per_iteration,
+# }
+
+# url = "http://export.arxiv.org/api/query?" + urllib.parse.urlencode(params)
+
+request = urllib.request.Request(url)
+
+with urllib.request.urlopen(request) as response:
+    xml = response.read().decode('utf-8')
+
+root = ET.fromstring(xml)
+ns   = {'atom': 'http://www.w3.org/2005/Atom',
+        'arxiv': 'http://arxiv.org/schemas/atom'}
+entries = root.findall('atom:entry', ns)
+
+print(f"Found {len(entries)} records from arXiv")
+
+# Write out to CSV
+with open('arXiv.csv', 'w', newline='', encoding='utf-8') as csvfile:
+    writer = csv.writer(csvfile)
+    # header row
+    writer.writerow(['ARXIVID', 'Title', 'Abstract', 'Authors', 'Affiliations', 'Date_published', 'URL'])
+    for e in entries:
+        eid       = e.find('atom:id', ns).text.strip().replace('http://arxiv.org/abs/', '')
+        title     = e.find('atom:title', ns).text.strip().replace('\n', ' ')
+        abstract     = e.find('atom:summary', ns).text.strip().replace('\n', ' ')
+        
+        authors = []
+        for author in e.findall('atom:author', ns):
+            name = author.find('atom:name', ns).text
+            authors.append(name)
+        authors = '; '.join(authors)
+
+        affiliations = []
+        for author in e.findall('atom:author', ns):
+            aff = author.find('arxiv:affiliation', ns)
+            if aff is not None:
+                affiliations.append(aff.text)
+        affiliations = '; '.join(affiliations)
+
+        published = e.find('atom:published', ns).text
+        link      = e.find("atom:link[@type='text/html']", ns).attrib['href']
+        writer.writerow([eid, title, abstract, authors, affiliations, published, link])
