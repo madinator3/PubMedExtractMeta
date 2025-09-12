@@ -15,11 +15,10 @@
 import os
 import sys
 import pandas as pd
-import feedparser
 import urllib
 import xml.etree.ElementTree as ET
 import datetime as dt
-import csv
+
 
 #================ Project setup =============================================================
 # Define the project root directory and add it to the system path
@@ -126,6 +125,11 @@ for i in range(start,total_results,results_per_iteration):
     
     print(f"Found {len(entries)} records from arXiv")
 
+    # Break oout of the loop if no more records are found
+    if len(entries) == 0:
+        print("No more records found. Exiting loop.")
+        break   
+    
     # Rest before hitting the api again
     print('Sleeping for %i seconds' % sleep_between_tries)
     time.sleep(sleep_between_tries)
