@@ -11,7 +11,7 @@ authors = []  # Example authors, adjust as needed
 topics = ['genomics']  # Example topics, adjust as needed
 
 # Define date range
-date_start = '2025/01/01'
+date_start = '2025/08/08'
 date_end = '2025/09/08'
 
 #================ QUERY FORMATTING ========================================
@@ -59,7 +59,7 @@ def arxiv_query(authors, topics, date_start, date_end):
     queries = []
 
     if authors:
-        author_queries = ['au:{}'.format(author) for author in authors]
+        author_queries = ['author:{}'.format(author) for author in authors]
         author_queries = map(lambda authors: authors.replace(' ', '_'), authors)
         queries.append('+AND+'.join(author_queries))
 
@@ -77,9 +77,43 @@ def arxiv_query(authors, topics, date_start, date_end):
     return full_query
 
 
+def openalex_query(authors, topics, date_start, date_end):
+    '''
+    Constructs a OpenAlex query string based on authors, topics, and date range.
+
+    authors: List of author names. E.g., ['Author One', 'Author Two']
+    topics: List of topics/keywords. E.g., ['cancer', 'diabetes']
+    date_start: Start date in "YYYY/MM/DD" format. E.g., "2010/01/01"
+    date_end: End date in "YYYY/MM/DD" format. E.g., "2020/12/31"
+    
+    Returns: A formatted PubMed query string.
+    '''
+    queries = []
+
+    if authors: #This type of search may need to be done in Authors class; Not implemented
+        author_queries = ['display_name:{}'.format(author) for author in authors]
+        queries.append(','.join(author_queries))
+
+    if topics:
+        topic_queries = ['default.search:{}'.format(topic) for topic in topics]
+        queries.append(','.join(topic_queries))
+
+    if date_start:
+        date = date_start.replace('/', '-')
+        date_start_oa = 'from_publication_date:' + date
+    
+    if date_end:
+        date = date_end.replace('/', '-')
+        date_end_oa = 'to_publication_date:' + date 
+
+    full_query = ','.join(queries) + ',' + date_start_oa + ',' + date_end_oa
+
+    return full_query
 
 pmq = pubmed_query(authors, topics, date_start, date_end)
 arxivq = arxiv_query(authors, topics, date_start, date_end)
+oaq = openalex_query(authors, topics, date_start, date_end)
 
 print(pmq)
 print(arxivq)
+print(oaq)
