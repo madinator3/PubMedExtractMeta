@@ -84,7 +84,7 @@ print(len(ua_articles))
 df = pd.json_normalize(ua_articles) 
 
 
-#TO DO: annotate function, move citation information function into utils and its configs in configs.yaml
+#TO DO: parse the DataFrame to only include relevant columns; Add authors to query if possible
 #================ Export results =============================================================
 
 from scripts.utils import save_data_to_file

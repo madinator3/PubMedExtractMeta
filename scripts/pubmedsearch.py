@@ -14,6 +14,7 @@ import pandas as pd
 import json
 from Bio import Entrez
 import datetime as dt
+import requests
 
 #================ Project setup =============================================================
 # Define the project root directory and add it to the system path
@@ -173,7 +174,7 @@ for pmid in id_list:
 
 print(df)
 
-import requests
+#================ Fetch citation information from iCite =====================================
 
 BASE_URL = "https://icite.od.nih.gov/api"
 parameter_list = ['pmid', 'doi', 'citation_count', 'cited_by_clin', 'cited_by']
