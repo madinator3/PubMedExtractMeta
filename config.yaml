@@ -1,12 +1,10 @@
-# API and email configuration
-pubmed_api_key: "09921aadccbafb8e5913ae1c99e2fafbe00a"                     # API key for accessing the service. Replace with your own key.
-pubmed_api_email: "leandrorodrigues.s@gmail.com"                           # Email associated with the API for identification purposes.
 
 # General configuration for pubmed
 pubmed_config:
   api_key: "09921aadccbafb8e5913ae1c99e2fafbe00a"                     # API key for accessing the service. Replace with your own key.
   api_email: "leandrorodrigues.s@gmail.com"                           # Email associated with the API for identification purposes.
-  time_sleep: 15                                                     # Time between queries in PubMed in seconds. Default is 15 seconds
+  pubmed_time_sleep: 15                                                # Time between queries in PubMed in seconds. Default is 15 seconds
+  icite_time_sleep: 5                                                # Time between queries in iCite in seconds. Default is 5 seconds
   max_tries: 3                                                       # Maximum number of attempts to fetch data from PubMed in case of failure.
   retmax: 10000                                                      # Max number of records to retrieve from PubMed in a single query. Max is 10000
   file_save_periodically: 10                                         # Save results periodically files csv incremental
@@ -21,7 +19,7 @@ arxiv_config:
   results_per_iteration: 500                                          # Must be iterated through. 2000 can be retrieved at a time to a maximum of 2000.
   max_tries: 5
 
-# General configuration for ArXiv 
+# General configuration for OpenAlex
 openalex_config:
   api_email: "octoberdaye11@gmail.com"
   time_sleep: 3                                                       # Time between queries in PubMed in seconds. Default is 3 seconds

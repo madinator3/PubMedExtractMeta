@@ -191,8 +191,8 @@ def initialize_environment():
     configure_logging(PATH_ROOT, CONFIG["logging"])
 
     # Define email and API key for Entrez
-    Entrez.email = CONFIG["pubmed_api_key"]
-    Entrez.api_key = CONFIG["pubmed_api_email"] 
+    Entrez.email = CONFIG['pubmed_config']["api_email"]
+    Entrez.api_key = CONFIG['pubmed_config']["api_key"]
 
     setup_directories(PATH_ROOT, CONFIG["directories"])
 

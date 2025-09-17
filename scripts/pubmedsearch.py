@@ -39,21 +39,21 @@ print("Current Date_Time:", current_datetime)
 
 #================ Import query =============================================================
 
-from scripts.querysetup import full_query
+from scripts.querysetup import pmq
 
-print("Full Query:", full_query)
+print("Full Query:", pmq)
 
 
 #================ Search PubMed for relevant records ========================================
 # Set up Entrez API parameters
-Entrez.api_key = CONFIG['pubmed_api_key'] # Set your API key for NCBI Entrez. If not set, only 3 queries per second are allowed. 10 queries per seconds otherwise with a valid API key.
-Entrez.email = CONFIG['pubmed_api_email']  # Set your email to comply with NCBI's policy 
-Entrez.max_tries = CONFIG['config']['max_tries']  # Set the maximum number of attempts to fetch data from PubMed in case of failure.
-Entrez.sleep_between_tries = CONFIG['config']['time_sleep']  # Set the time to sleep between queries in seconds
-retmax = CONFIG['config']['retmax']  # Set the maximum number of records to retrieve from PubMed in a single query. Max is 10000.
+Entrez.api_key = CONFIG['pubmed_config']['api_key'] # Set your API key for NCBI Entrez. If not set, only 3 queries per second are allowed. 10 queries per seconds otherwise with a valid API key.
+Entrez.email = CONFIG['pubmed_config']['api_email']  # Set your email to comply with NCBI's policy 
+Entrez.max_tries = CONFIG['pubmed_config']['max_tries']  # Set the maximum number of attempts to fetch data from PubMed in case of failure.
+Entrez.sleep_between_tries = CONFIG['pubmed_config']['pubmed_time_sleep']  # Set the time to sleep between queries in seconds
+retmax = CONFIG['pubmed_config']['retmax']  # Set the maximum number of records to retrieve from PubMed in a single query. Max is 10000.
 
 
-handle = Entrez.esearch(db='pubmed', retmax=retmax, term=full_query)
+handle = Entrez.esearch(db='pubmed', retmax=retmax, term=pmq)
 record = Entrez.read(handle)
 id_list = record['IdList']
 
@@ -81,8 +81,26 @@ for pmid in id_list:
         abstract = ' '.join(record['MedlineCitation']['Article']['Abstract']['AbstractText']) if 'Abstract' in record['MedlineCitation']['Article'] and 'AbstractText' in record['MedlineCitation']['Article']['Abstract'] else ''
         
         # Extract authors
-        authors = ', '.join(author.get('LastName', '') + ' ' + author.get('ForeName', '') for author in record['MedlineCitation']['Article']['AuthorList'])
-        
+        authors = []
+        if 'AuthorList' in record['MedlineCitation']['Article']:
+            
+            for author in record['MedlineCitation']['Article']['AuthorList']:
+
+                if 'LastName' in author:
+                    lastname = author['LastName']
+                else:lastname = "NAN"
+
+                if 'ForeName' in author:
+                    forename = author['ForeName']
+                else:forename = "NAN"
+
+                name = f"{lastname}, {forename}"
+                authors.append(name)
+                
+            authors = '; '.join(authors)
+        else: 
+            authors = "NAN"
+
         # Extract author affiliations
         affiliations = []
         for author in record['MedlineCitation']['Article']['AuthorList']:
@@ -133,21 +151,39 @@ for pmid in id_list:
         
         # Extract Grants
         grants = []
-        for gt in record['MedlineCitation']['Article'].get('GrantList', []):
-            # Extracting GrantID, Acronym, and Agency
-            if 'GrantID' in gt:
-                gID = gt.get('GrantID',"NAN")  
-            if 'Acronym' in gt:
-                acronym = gt.get('Acronym',"NAN")  
-            if 'Agency' in gt:
-                agency = gt.get('Agency',"NAN")  
-            if 'Country' in gt:
-                country = gt.get('Country',"NAN")
+        if 'GrantList' in record['MedlineCitation']['Article']:
+            for gt in record['MedlineCitation']['Article']['GrantList']:
+                # Extracting GrantID, Acronym, and Agency
+                if 'GrantID' in gt:
+                    gID = gt['GrantID']
+                else: gID = "NAN"  
+
+                if 'Acronym' in gt:
+                    acronym = gt['Acronym']
+                else: acronym = "NAN"  
+
+                if 'Agency' in gt:
+                    agency = gt['Agency']
+                else:agency = "NAN" 
+
+                if 'Country' in gt:
+                    country = gt['Country'] 
+                else: country = "NAN"
+
+                # if 'Acronym' in gt:
+                #     acronym = gt.get('Acronym',"NAN")  
+                # if 'Agency' in gt:
+                #     agency = gt.get('Agency',"NAN")  
+                # if 'Country' in gt:
+                #     country = gt.get('Country',"NAN")
+                
+                grant_info = f"{gID}_{acronym}_{agency}_{country}"
+                grants.append(grant_info)
             
-            grant_info = f"{gID}_{acronym}_{agency}_{country}" 
-            grants.append(grant_info)
+            grants = '; '.join(set(grants))
+
+        else: grants = ["NAN_NAN_NAN_NAN"]
   
-        grants = '; '.join(set(grants))
 
         # Create a new row with the extracted data
         new_row = pd.DataFrame({
@@ -179,7 +215,6 @@ print(df)
 BASE_URL = "https://icite.od.nih.gov/api"
 parameter_list = ['pmid', 'doi', 'citation_count', 'cited_by_clin', 'cited_by']
 MAX_PMIDS_PER_REQUEST = 1000
-sleep = 0.05
 api_url = f'{BASE_URL}/pubs'
 
 
@@ -195,14 +230,13 @@ def get_icites(pmid_list=[], field_list=[], timeout=500):
     """
     BASE_URL = "https://icite.od.nih.gov/api"
     MAX_PMIDS_PER_REQUEST = 1000
-    sleep = 0.05
     api_url = f'{BASE_URL}/pubs'
 
     responses_data = []  # To store response data from all batches
 
     # Split pmid_list into sublists of up to 1000 PMIDs each
     for i in range(0, len(pmid_list), MAX_PMIDS_PER_REQUEST):
-        time.sleep(sleep)
+        time.sleep(CONFIG['pubmed_config']['icite_time_sleep'])
         sub_pmid_list = pmid_list[i:i + MAX_PMIDS_PER_REQUEST]
         payload = {
             'pmids': ','.join(map(str, sub_pmid_list)),
