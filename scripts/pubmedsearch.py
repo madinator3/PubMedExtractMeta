@@ -82,33 +82,32 @@ for pmid in id_list:
         
         # Extract authors
         authors = []
-        if 'AuthorList' in record['MedlineCitation']['Article']:
-            
+        affiliations = []
+        if 'AuthorList' in record['MedlineCitation']['Article']: 
+             # default=str handles types JSON can't serialize like datetime
             for author in record['MedlineCitation']['Article']['AuthorList']:
-
                 if 'LastName' in author:
                     lastname = author['LastName']
-                else:lastname = "NAN"
+                else:lastname = "NONE"
 
                 if 'ForeName' in author:
                     forename = author['ForeName']
-                else:forename = "NAN"
+                else:forename = "NONE"
 
                 name = f"{lastname}, {forename}"
                 authors.append(name)
-                
             authors = '; '.join(authors)
-        else: 
-            authors = "NAN"
+                    # Extract author affiliations
 
-        # Extract author affiliations
-        affiliations = []
-        for author in record['MedlineCitation']['Article']['AuthorList']:
-            if 'AffiliationInfo' in author and author['AffiliationInfo']:
-                for affiliation in author['AffiliationInfo']:
-                    if 'Affiliation' in affiliation:
-                        affiliations.append(affiliation['Affiliation'])
-        affiliations = '; '.join(set(affiliations))
+            for author in record['MedlineCitation']['Article']['AuthorList']:
+                if 'AffiliationInfo' in author and author['AffiliationInfo']:
+                    for affiliation in author['AffiliationInfo']:
+                        if 'Affiliation' in affiliation:
+                            affiliations.append(affiliation['Affiliation'])
+            affiliations = '; '.join(set(affiliations))
+        else: 
+            authors = "NONE"
+            affiliations = "NONE"
 
         # Extract journal information
         journal_title = record['MedlineCitation']['Article']['Journal']['Title']
@@ -156,33 +155,26 @@ for pmid in id_list:
                 # Extracting GrantID, Acronym, and Agency
                 if 'GrantID' in gt:
                     gID = gt['GrantID']
-                else: gID = "NAN"  
+                else: gID = "NONE"  
 
                 if 'Acronym' in gt:
                     acronym = gt['Acronym']
-                else: acronym = "NAN"  
+                else: acronym = "NONE"  
 
                 if 'Agency' in gt:
                     agency = gt['Agency']
-                else:agency = "NAN" 
+                else:agency = "NONE" 
 
                 if 'Country' in gt:
                     country = gt['Country'] 
-                else: country = "NAN"
-
-                # if 'Acronym' in gt:
-                #     acronym = gt.get('Acronym',"NAN")  
-                # if 'Agency' in gt:
-                #     agency = gt.get('Agency',"NAN")  
-                # if 'Country' in gt:
-                #     country = gt.get('Country',"NAN")
+                else: country = "NONE"
                 
                 grant_info = f"{gID}_{acronym}_{agency}_{country}"
                 grants.append(grant_info)
             
             grants = '; '.join(set(grants))
 
-        else: grants = ["NAN_NAN_NAN_NAN"]
+        else: grants = ["NONE"]
   
 
         # Create a new row with the extracted data
@@ -209,14 +201,10 @@ for pmid in id_list:
         df = pd.concat([df, new_row], ignore_index=True)
 
 print(df)
+print(f"Total records fetched: {len(df)}")
 
 #================ Fetch citation information from iCite =====================================
-
-BASE_URL = "https://icite.od.nih.gov/api"
 parameter_list = ['pmid', 'doi', 'citation_count', 'cited_by_clin', 'cited_by']
-MAX_PMIDS_PER_REQUEST = 1000
-api_url = f'{BASE_URL}/pubs'
-
 
 def get_icites(pmid_list=[], field_list=[], timeout=500):
     """
@@ -228,8 +216,8 @@ def get_icites(pmid_list=[], field_list=[], timeout=500):
     Returns:
     A JSON object containing merged results of the requests.
     """
-    BASE_URL = "https://icite.od.nih.gov/api"
-    MAX_PMIDS_PER_REQUEST = 1000
+    BASE_URL = CONFIG['pubmed_config']['icite_base_url']
+    MAX_PMIDS_PER_REQUEST = CONFIG['pubmed_config']['icite_results_per_iteration']
     api_url = f'{BASE_URL}/pubs'
 
     responses_data = []  # To store response data from all batches
@@ -277,16 +265,28 @@ for record in citations['data']:
     pmid = record['pmid']
 
     # Extract DOI information
-    doi = record['doi']
+    if 'doi' in record:
+        doi = record['doi']
+    else:
+        doi = "NONE"
 
     # Extract DOI information
-    citation_count = record['citation_count']
+    if 'citation_count' in record: 
+        citation_count = record['citation_count']
+    else: 
+        citation_count = 0
 
     # Extract Cited By Clin List
-    cited_by_clin = record['cited_by_clin']
+    if 'cited_by_clin' in record: 
+        cited_by_clin = record['cited_by_clin']
+    else:
+        cited_by_clin = 0
 
     # Extract Cited By List
-    cited_by = record['cited_by']
+    if 'cited_by' in record:
+        cited_by = record['cited_by'] 
+    else:
+        cited_by = "NONE"
 
     # Create a new row with the extracted data
     new_row = pd.DataFrame({
