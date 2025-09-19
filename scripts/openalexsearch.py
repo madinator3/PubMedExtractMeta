@@ -5,6 +5,7 @@
 # https://docs.openalex.org/how-to-use-the-api/api-overview
 # https://github.com/J535D165/pyalex
 # https://ua-libraries-research-data-services.github.io/UALIB_ScholarlyAPI_Cookbook/src/python/openalex.html
+# https://api.openalex.org/works?per-page=50&page=2
 
 
 
@@ -84,10 +85,10 @@ print(len(ua_articles))
 # df = pd.json_normalize(ua_articles) 
 
 # DataFrame to store the extracted data
-df = pd.DataFrame(columns=['OAID', 'Title', 'Abstract', 'Authors','Author_ORCIDs','Affiliations',
-                           'Journal_Title', 'Journal_ISO', 'Keywords', 'Date_Pub_Year', 
-                           'Date_Pub_Month', 'Date_Pub_Day', 'Date_Revise_Year', 
-                           'Date_Revise_Month', 'Date_Revise_Day', 'Grants', 'URL', 'DOI'])
+df = pd.DataFrame(columns=['OAID', 'Title', 'Abstract', 'Authors','Author_ORCIDs',
+                           'Affiliations','Affiliations_ROR','Affiliations_OAID','Affiliations_Country',
+                           'Journal_Title', 'Journal_ISO', 'Journal_Host', 'Keywords', 'Date_Published', 'Year_Published',
+                           'Work_Type','OpenAccess_Status','Publication_Status','Retraction_Status', 'Cited_By', 'Grants', 'URL', 'DOI'])
 
 # Fetch information for each record in the ua_articles list
 for record in ua_articles:
@@ -111,13 +112,15 @@ for record in ua_articles:
     # Extract author information
     authors = []
     authors_orcid = []
-    affiliations = []
-    affiliations_ror = []
-    affiliations_oaid = []
-    affiliations_country = []
+
     if 'authorships' in record and record['authorships'] is not None: 
-        for author in record['authorships']['author']:
+        for authorship in record['authorships']:
+            # Define authorship tables in a variable for easier access
+            author = authorship['author']
+            institution = authorship['institutions']
+
             # Extract author names
+            author = authorship['author']
             if 'display_name' in author and author['display_name'] is not None:
                 name = author['display_name']
             else: 
@@ -130,31 +133,155 @@ for record in ua_articles:
             else: 
                 orcid = "NONE"
             authors_orcid.append(orcid)
+
+
         authors = '; '.join(authors)
         authors_orcid = '; '.join(authors_orcid)
 
     else: 
         authors = "NONE"
+        authors_orcid = "NONE"
             
+    affiliations = []
+    affiliations_ror = []
+    affiliations_oaid = []
+    affiliations_country = []
+    if 'authorships' in record and record['authorships'] is not None: 
+        for places in record['authorships']:
+            for institution in places['institutions']:
+                # Extract affiliation names
+                if 'display_name' in institution and institution['display_name'] is not None:
+                    aff = institution['display_name'] 
+                else:
+                    aff = "NONE"
+                affiliations.append(aff)
+            
+                # Extract ror
+                if 'ror' in institution and institution['ror'] is not None:
+                    ror = institution['ror'] 
+                else:
+                    ror = "NONE"
+                affiliations_ror.append(ror)
+
+                # Extract openalex institution id
+                if 'id' in institution and institution['id'] is not None:
+                    int_oaid = institution['id'] 
+                else:
+                    int_oaid = "NONE"
+                affiliations_oaid.append(int_oaid)
+
+                # Extract institution country
+                if 'country_code' in institution and institution['country_code'] is not None:
+                    country = institution['country_code']         
+                else:
+                    country = "NONE"    
+                affiliations_country.append(country)
+
+        affiliations = '; '.join(affiliations)
+        affiliations_ror = '; '.join(affiliations_ror)
+        affiliations_oaid = '; '.join(affiliations_oaid)
+        affiliations_country = '; '.join(affiliations_country)
+
+    else: 
+        affiliations = "NONE"
+        affiliations_ror = "NONE"
+        affiliations_oaid = "NONE"
+        affiliations_country = "NONE"   
+
+    # Extract year published
+    pub_yr = record['publication_year']
+
+    # Extract date published
+    date_pub = record['publication_date']
+
+    # Extract Journal title, ISSN, and host
+    if 'primary_location' in record and record['primary_location'] is not None:
+        if 'source' in record['primary_location'] and record['primary_location']['source'] is not None:
+            # Extract jounral title
+            if 'display_name' in record['primary_location']['source'] and record['primary_location']['source']['display_name'] is not None:
+                journal_title = record['primary_location']['source']['display_name']
+            else:
+                journal_title = "NONE"
+            # Extract journal ISSN
+            if 'issn_l' in record['primary_location']['source'] and record['primary_location']['source']['issn_l'] is not None:
+                journal_iso = record['primary_location']['source']['issn_l']
+            else:
+                journal_iso = "NONE"
+            # Extract journal host
+            if 'host_organization' in record['primary_location']['source'] and record['primary_location']['source']['host_organization'] is not None:
+                journal_host = record['primary_location']['source']['host_organization_name']
+            else:
+                journal_host = "NONE"
+        else:
+            journal_title = "NONE"
+            journal_iso = "NONE"
+            journal_host = "NONE"
+    else:
+        journal_title = "NONE"
+        journal_iso = "NONE"
+        journal_host = "NONE"
+
+    # Extract work type
+    if 'type' in record and record['type'] is not None:
+        work_type = record['type']  
+    else: 
+        work_type = "NONE"
+
+    # Extract open access status
+    if 'open_access' in record and record['open_access'] is not None:
+        if 'is_oa' in record['open_access'] and record['open_access']['is_oa'] is not None:
+            is_oa = record['open_access']['is_oa'] 
+        else:
+            is_oa = "NONE"
+    else:
+        is_oa = "NONE"
+
+    # Extract Cited by count
+    if 'cited_by_count' in record and record['cited_by_count'] is not None:
+        cited_by = record['cited_by_count']
+    else:
+        cited_by = 0
+
+    # Extract Publication status
+    if 'primary_location' in record and record['primary_location'] is not None:
+        if 'is_published' in record['primary_location'] and record['primary_location']['is_published'] is not None:
+            pub_status = record['primary_location']['is_published']
+        else:
+            pub_status = "NONE"
+    else:
+        pub_status = "NONE"
+
+    # Extract Retraction status
+    if 'is_retracted' in record and record['is_retracted'] is not None:
+        retraction_status = record['is_retracted']
+    else:
+        retraction_status = "NONE"
+
     
- # Create a new row with the extracted data
+
+    # Create a new row with the extracted data
     new_row = pd.DataFrame({
         'OAID': [oaid],
         'Title': [title],
-            # 'Abstract': [abstract],
         'Authors': [authors],
-        'Author_ORCIDs': [authors],
-            # 'Affiliations': [affiliations],
-            # 'Journal_Title': [journal_title],
-            # 'Journal_ISO': [journal_iso],
-            # 'Keywords': [keywords],
-            # 'Date_Pub_Year': [date_pub_yr],
-            # 'Date_Pub_Month': [date_pub_month],
-            # 'Date_Pub_Day': [date_pub_day],
-            # 'Date_Revise_Year': [date_revise_yr],
-            # 'Date_Revise_Month': [date_revise_month],
-            # 'Date_Revise_Day': [date_revise_day],
-            # 'Grants': [grants],
+        'Author_ORCIDs': [authors_orcid],
+        'Affiliations': [affiliations],
+        'Affiliations_ROR': [affiliations_ror],
+        'Affiliations_OAID': [affiliations_oaid],
+        'Affiliations_Country': [affiliations_country],
+        'Date_Published': [date_pub],
+        'Year_Published': [pub_yr],
+        'Journal_Title': [journal_title],
+        'Journal_ISO': [journal_iso],
+        'Journal_Host': [journal_host],
+        'Work_Type': [work_type],
+        'OpenAccess_Status': [is_oa],
+        'Cited_By': [cited_by],
+        'Publication_Status': [pub_status],
+        'Retraction_Status': [retraction_status],
+        # 'Grants': [grants],
+        # 'Keywords': [keywords],
+        # 'Abstract': [abstract],
         'URL': [url],
         'DOI': [doi]
         })
@@ -163,7 +290,8 @@ for record in ua_articles:
 
 print(df)
 
-# #TO DO: parse the DataFrame to only include relevant columns; Add authors to query if possible
+# #TO DO: parse the DataFrame to extract Grants, Keywords, Abstract (look at pyAlex for this one); Add authors to query if possible; Sanity/Verify check export
+
 # #================ Export results =============================================================
 
 from scripts.utils import save_data_to_file
