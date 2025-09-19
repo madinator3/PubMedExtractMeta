@@ -80,3 +80,7 @@ Desktop.ini
 # Local config
 *.env
 *.local
+
+# outputs
+output/
+logs/
