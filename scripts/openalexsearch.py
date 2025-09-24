@@ -113,7 +113,7 @@ for record in ua_articles:
     authors = []
     authors_orcid = []
 
-    if 'authorships' in record and record['authorships'] is not None: 
+    if 'authorships' in record and record['authorships']: 
         for authorship in record['authorships']:
             # Define authorship tables in a variable for easier access
             author = authorship['author']
@@ -121,14 +121,14 @@ for record in ua_articles:
 
             # Extract author names
             author = authorship['author']
-            if 'display_name' in author and author['display_name'] is not []:
+            if 'display_name' in author and author['display_name']:
                 name = author['display_name']
             else: 
                 name = "NONE"
             authors.append(name)
 
             # Extract author ORCIDs
-            if 'orcid' in author and author['orcid'] is not None:
+            if 'orcid' in author and author['orcid']:
                 orcid = author['orcid'] 
             else: 
                 orcid = "NONE"
@@ -155,30 +155,30 @@ for record in ua_articles:
                 else:
                     aff = "NONE"
                 affiliations.append(aff)
-            
+                
                 # Extract ror
-                if 'ror' in institution and institution['ror'] is not None:
+                if 'ror' in institution and institution['ror']:
                     ror = institution['ror'] 
                 else:
                     ror = "NONE"
                 affiliations_ror.append(ror)
 
                 # Extract openalex institution id
-                if 'id' in institution and institution['id'] is not []:
+                if 'id' in institution and institution['id']:
                     int_oaid = institution['id'] 
                 else:
                     int_oaid = "NONE"
                 affiliations_oaid.append(int_oaid)
 
                 # Extract institution country
-                if 'country_code' in institution and institution['country_code'] is not None:
+                if 'country_code' in institution and institution['country_code']:
                     country = institution['country_code']         
                 else:
                     country = "NONE"    
                 affiliations_country.append(country)
 
         affiliations = '; '.join(affiliations)
-        affiliations_ror = '; '.join(affiliations_ror)
+        affiliations_ror = '; '.join(affiliations_ror)  
         affiliations_oaid = '; '.join(affiliations_oaid)
         affiliations_country = '; '.join(affiliations_country)
 
@@ -188,6 +188,15 @@ for record in ua_articles:
         affiliations_oaid = "NONE"
         affiliations_country = "NONE"   
 
+    if affiliations == '':
+        affiliations = "NONE"
+    if affiliations_ror == '':
+        affiliations_ror = "NONE"
+    if affiliations_oaid == '':
+        affiliations_oaid = "NONE"
+    if affiliations_country == '':
+        affiliations_country = "NONE"
+    
     # Extract year published
     pub_yr = record['publication_year']
 
