@@ -88,7 +88,7 @@ print(len(ua_articles))
 df = pd.DataFrame(columns=['OAID', 'Title', 'Abstract', 'Authors','Author_ORCIDs',
                            'Affiliations','Affiliations_ROR','Affiliations_OAID','Affiliations_Country',
                            'Journal_Title', 'Journal_ISO', 'Journal_Host', 'Keywords', 'Date_Published', 'Year_Published',
-                           'Work_Type','OpenAccess_Status','Publication_Status','Retraction_Status', 'Cited_By', 'Grants', 'URL', 'DOI'])
+                           'Work_Type','OpenAccess_Status','Publication_Status','Retraction_Status', 'Cited_By', 'URL', 'DOI'])
 
 # Fetch information for each record in the ua_articles list
 for record in ua_articles:
@@ -121,7 +121,7 @@ for record in ua_articles:
 
             # Extract author names
             author = authorship['author']
-            if 'display_name' in author and author['display_name'] is not None:
+            if 'display_name' in author and author['display_name'] is not []:
                 name = author['display_name']
             else: 
                 name = "NONE"
@@ -164,7 +164,7 @@ for record in ua_articles:
                 affiliations_ror.append(ror)
 
                 # Extract openalex institution id
-                if 'id' in institution and institution['id'] is not None:
+                if 'id' in institution and institution['id'] is not []:
                     int_oaid = institution['id'] 
                 else:
                     int_oaid = "NONE"
@@ -257,7 +257,42 @@ for record in ua_articles:
     else:
         retraction_status = "NONE"
 
+    # Extract keywords
+    if 'concepts' in record and record['concepts'] is not None:
+        keywords = []
+        for concept in record['concepts']:
+            if 'display_name' in concept and concept['display_name'] is not None:
+                keywords.append(concept['display_name'])
+            else:
+                pub_status = "NONE"
+    else:
+        pub_status = "NONE"
+
+    keywords = '; '.join(keywords)
+
+    # Extract abstract 
+    def invert_abstract(inv_index):
+        """Invert OpenAlex abstract index. Function from pyAlex.
+        https://github.com/J535D165/pyalex/blob/main/pyalex/api.py
+
+        Parameters
+        ----------
+        inv_index : dict
+            Inverted index of the abstract.
+
+        Returns
+        -------
+        str
+            Inverted abstract.
+        """
+
+        if inv_index is not None:
+            l_inv = [(w, p) for w, pos in inv_index.items() for p in pos]
+            return " ".join(map(lambda x: x[0], sorted(l_inv, key=lambda x: x[1])))
+        else:
+            return "NONE"
     
+    abstract = invert_abstract(record['abstract_inverted_index'])
 
     # Create a new row with the extracted data
     new_row = pd.DataFrame({
@@ -279,9 +314,8 @@ for record in ua_articles:
         'Cited_By': [cited_by],
         'Publication_Status': [pub_status],
         'Retraction_Status': [retraction_status],
-        # 'Grants': [grants],
-        # 'Keywords': [keywords],
-        # 'Abstract': [abstract],
+        'Keywords': [keywords],
+        'Abstract': [abstract],
         'URL': [url],
         'DOI': [doi]
         })
