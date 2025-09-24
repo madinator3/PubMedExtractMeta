@@ -81,9 +81,6 @@ while cursor is not None:
 # Display number of UA articles in database
 print(len(ua_articles))
 
-# Convert the list of articles to a DataFrame
-# df = pd.json_normalize(ua_articles) 
-
 # DataFrame to store the extracted data
 df = pd.DataFrame(columns=['OAID', 'Title', 'Abstract', 'Authors','Author_ORCIDs',
                            'Affiliations','Affiliations_ROR','Affiliations_OAID','Affiliations_Country',
