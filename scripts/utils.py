@@ -7,10 +7,7 @@
 import yaml
 import os
 import sys
-import time
-import pandas as pd
 import logging
-from Bio import Entrez
 from pathlib import Path
 
 #=============== Global Var ==============
@@ -28,13 +25,16 @@ def save_data_to_file(df, file_path):
     If the file does not exist, it will be created with headers.
     If the file already exists, the data will be appended without headers.
 
-    Parameters:
-        df (pd.DataFrame): The DataFrame containing the data to be saved.
-        file_path (str): The full path of the CSV file.
+    Args:
+        df (pd.DataFrame):  The DataFrame containing the data to be saved.
+        file_path (str):    The full path of the CSV file.
 
     Error Handling:
-        - Logs any exception that occurs while attempting to save the file.
+        Logs any exception that occurs while attempting to save the file.
     
+    Returns:
+        Exported CSV file at the specified path.
+
     Example:
         save_data_to_file(my_dataframe, "data.csv")
     """
@@ -96,6 +96,16 @@ def initialize_environment():
     """
     Initialize the application environment by loading configuration, 
     setting up directories, and configuring logging.
+
+    Args:
+        None
+    
+    Raises:
+        FileNotFoundError: If the configuration file is not found.
+        ValueError: If there is an issue parsing the YAML file.
+        KeyError: If required keys are missing in the configuration.
+    
+    
     """
     global CONFIG, FILE_PATHS, PATH_ROOT, OUTPUT_PATH
 
