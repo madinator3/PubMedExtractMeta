@@ -191,17 +191,13 @@ def initialize_environment():
     configure_logging(PATH_ROOT, CONFIG["logging"])
 
     # Define email and API key for Entrez
-    Entrez.email = CONFIG['pubmed_config']["api_email"]
-    Entrez.api_key = CONFIG['pubmed_config']["api_key"]
+    # Entrez.email = CONFIG['pubmed_config']["api_email"]
+    # Entrez.api_key = CONFIG['pubmed_config']["api_key"]
 
     setup_directories(PATH_ROOT, CONFIG["directories"])
 
     FILE_PATHS = get_output_file_paths(CONFIG["files"])
     logging.info(f"Environment initialized successfully.{PATH_ROOT}")
-
-    #path input process
-    #DATA_INPUT_PATH_TMP = CONFIG["directories"]['input']
-    #INPUT_PATH = os.path.normpath(os.path.join(PATH_ROOT, DATA_INPUT_PATH_TMP))
 
     #path output process
     RESEARCH_OUTPUT_PATH_TMP = CONFIG["directories"]['output'] 

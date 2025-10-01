@@ -80,7 +80,7 @@ for pmid in id_list:
         # Extract abstract
         abstract = ' '.join(record['MedlineCitation']['Article']['Abstract']['AbstractText']) if 'Abstract' in record['MedlineCitation']['Article'] and 'AbstractText' in record['MedlineCitation']['Article']['Abstract'] else ''
         
-        # Extract authors
+        # Extract authors and affiliations
         authors = []
         affiliations = []
         if 'AuthorList' in record['MedlineCitation']['Article']: 
@@ -174,7 +174,7 @@ for pmid in id_list:
             
             grants = '; '.join(set(grants))
 
-        else: grants = ["NONE"]
+        else: grants = "NONE"
   
 
         # Create a new row with the extracted data
