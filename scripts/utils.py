@@ -20,24 +20,24 @@ PATH_ROOT = None
 OUTPUT_PATH = None
 
 #=============== Functions ==============
-def load_config(config_path):
-    """
-    Load configuration from a YAML file.
+# def load_config(config_path):
+#     """
+#     Load configuration from a YAML file.
     
-    :param config_path: Path to the YAML configuration file.
-    :return: Dictionary containing configuration data.
-    """
-    try:
-        with open(config_path, "r") as config_file:
-            return yaml.safe_load(config_file)
+#     :param config_path: Path to the YAML configuration file.
+#     :return: Dictionary containing configuration data.
+#     """
+#     try:
+#         with open(config_path, "r") as config_file:
+#             return yaml.safe_load(config_file)
     
-    except FileNotFoundError:
-        # Log error if configuration file is not found
-        raise FileNotFoundError(f"Configuration file not found at {config_path}. Please provide a valid path.")
+#     except FileNotFoundError:
+#         # Log error if configuration file is not found
+#         raise FileNotFoundError(f"Configuration file not found at {config_path}. Please provide a valid path.")
     
-    except yaml.YAMLError as e:
-        # Log error if there is an issue parsing the YAML file
-        raise ValueError(f"Error parsing YAML file: {e}")
+#     except yaml.YAMLError as e:
+#         # Log error if there is an issue parsing the YAML file
+#         raise ValueError(f"Error parsing YAML file: {e}")
 
 
 
@@ -56,7 +56,6 @@ def get_output_file_paths(file_config):
         logging.error(f"Missing file path in configuration: {e}")
         raise KeyError(f"Missing file path in configuration: {e}")
     
-
 
 def save_data_to_file(df, file_path):
     """
@@ -153,27 +152,6 @@ def setup_directories(path_root, directories):
         print(f"Error while processing YAML: {e}")
 
 
-
-
-def get_output_file_paths(file_config):
-    """
-    Get file paths for outputs based on configuration.
-    
-    :param file_config: Dictionary with file paths.
-    :return: Dictionary of file paths.
-    """
-    try:
-        return {
-            key: Path(file_config[key]) for key in file_config
-        }
-    except KeyError as e:
-        logging.error(f"Missing file path in configuration: {e}")
-        raise KeyError(f"Missing file path in configuration: {e}")
-    
-
-
-
-
 def initialize_environment():
     """
     Initialize the application environment by loading configuration, 
@@ -185,14 +163,25 @@ def initialize_environment():
     PATH_ROOT = os.path.abspath(os.path.join(os.getcwd()))
     sys.path.append(PATH_ROOT)
 
+    # Load configuration
     config_path = os.path.join(PATH_ROOT, 'config.yaml')
-    CONFIG = load_config(config_path)
+    # CONFIG = load_config(config_path)
+    try:
+        with open(config_path, "r") as config_file:
+            CONFIG = yaml.safe_load(config_file)
     
-    configure_logging(PATH_ROOT, CONFIG["logging"])
+    except FileNotFoundError:
+        # Log error if configuration file is not found
+        raise FileNotFoundError(f"Configuration file not found at {config_path}. Please provide a valid path.")
+    
+    except yaml.YAMLError as e:
+        # Log error if there is an issue parsing the YAML file
+        raise ValueError(f"Error parsing YAML file: {e}")
 
-    # Define email and API key for Entrez
-    # Entrez.email = CONFIG['pubmed_config']["api_email"]
-    # Entrez.api_key = CONFIG['pubmed_config']["api_key"]
+
+
+
+    configure_logging(PATH_ROOT, CONFIG["logging"])
 
     setup_directories(PATH_ROOT, CONFIG["directories"])
 
