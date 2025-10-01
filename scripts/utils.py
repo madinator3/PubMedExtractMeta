@@ -21,21 +21,6 @@ OUTPUT_PATH = None
 
 #=============== Functions ==============
 
-def get_output_file_paths(file_config):
-    """
-    Get file paths for outputs based on configuration.
-    
-    :param file_config: Dictionary with file paths.
-    :return: Dictionary of file paths.
-    """
-    try:
-        return {
-            key: Path(file_config[key]) for key in file_config
-        }
-    except KeyError as e:
-        logging.error(f"Missing file path in configuration: {e}")
-        raise KeyError(f"Missing file path in configuration: {e}")
-    
 
 def save_data_to_file(df, file_path):
     """
@@ -107,31 +92,6 @@ def configure_logging(path_root, logging_config):
 
 
 
-
-# def setup_directories(path_root, directories):
-#     """
-#     Create necessary directories if they don't exist.
-    
-#     :param directories: List of directory paths to create.
-#     """
-#     try:
-#         # Iterate through the directory configurations
-#         for dir_type, dir_path in directories.items():
-            
-#             dir_path = os.path.join(path_root, dir_path)
-#             dir_path = os.path.normpath(dir_path)
-
-#             if not os.path.exists(dir_path):
-#                 os.makedirs(dir_path)
-#                 logging.info(f"Created directory: {dir_path}")
-#             else:
-#                 logging.info(f"Directory already exists: {dir_path}")
-
-#     except Exception as e:
-#         logging.error(f"Error while processing YAML: {e}")
-#         print(f"Error while processing YAML: {e}")
-
-
 def initialize_environment():
     """
     Initialize the application environment by loading configuration, 
@@ -162,10 +122,9 @@ def initialize_environment():
     configure_logging(PATH_ROOT, CONFIG["logging"])
 
     # Setup necessary directories
-    # setup_directories(PATH_ROOT, CONFIG["directories"])
     try:
         # Iterate through the directory configurations
-        for dir_type, dir_path in CONFIG["directories"].items():
+        for dir_path in CONFIG["directories"].items():
             
             dir_path = os.path.join(PATH_ROOT, dir_path)
             dir_path = os.path.normpath(dir_path)
@@ -181,7 +140,14 @@ def initialize_environment():
         print(f"Error while processing YAML: {e}")
 
     # Get output file paths
-    FILE_PATHS = get_output_file_paths(CONFIG["files"])
+    try:
+        FILE_PATHS = { key: Path(CONFIG["files"][key]) for key in CONFIG["files"]
+        }
+    except KeyError as e:
+        logging.error(f"Missing file path in configuration: {e}")
+        raise KeyError(f"Missing file path in configuration: {e}")
+    
+    # Log record for successful initialization
     logging.info(f"Environment initialized successfully.{PATH_ROOT}")
 
     # path output process

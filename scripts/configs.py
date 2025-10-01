@@ -4,6 +4,7 @@
 # Source: https://github.com/SoftwareImpacts/SIMPAC-2024-316
 
 #=============== Libraries ==============
+# Global Libraries
 import os
 import sys
 import time
@@ -11,7 +12,13 @@ import logging
 from pathlib import Path
 import yaml
 import pandas as pd
+
+# PubMed Search Libraries
 from Bio import Entrez
+
+# Arxiv Search Libraries
+
+# OpenAI Libraries
 
 
 
