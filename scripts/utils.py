@@ -20,26 +20,6 @@ PATH_ROOT = None
 OUTPUT_PATH = None
 
 #=============== Functions ==============
-# def load_config(config_path):
-#     """
-#     Load configuration from a YAML file.
-    
-#     :param config_path: Path to the YAML configuration file.
-#     :return: Dictionary containing configuration data.
-#     """
-#     try:
-#         with open(config_path, "r") as config_file:
-#             return yaml.safe_load(config_file)
-    
-#     except FileNotFoundError:
-#         # Log error if configuration file is not found
-#         raise FileNotFoundError(f"Configuration file not found at {config_path}. Please provide a valid path.")
-    
-#     except yaml.YAMLError as e:
-#         # Log error if there is an issue parsing the YAML file
-#         raise ValueError(f"Error parsing YAML file: {e}")
-
-
 
 def get_output_file_paths(file_config):
     """
@@ -128,28 +108,28 @@ def configure_logging(path_root, logging_config):
 
 
 
-def setup_directories(path_root, directories):
-    """
-    Create necessary directories if they don't exist.
+# def setup_directories(path_root, directories):
+#     """
+#     Create necessary directories if they don't exist.
     
-    :param directories: List of directory paths to create.
-    """
-    try:
-        # Iterate through the directory configurations
-        for dir_type, dir_path in directories.items():
+#     :param directories: List of directory paths to create.
+#     """
+#     try:
+#         # Iterate through the directory configurations
+#         for dir_type, dir_path in directories.items():
             
-            dir_path = os.path.join(path_root, dir_path)
-            dir_path = os.path.normpath(dir_path)
+#             dir_path = os.path.join(path_root, dir_path)
+#             dir_path = os.path.normpath(dir_path)
 
-            if not os.path.exists(dir_path):
-                os.makedirs(dir_path)
-                logging.info(f"Created directory: {dir_path}")
-            else:
-                logging.info(f"Directory already exists: {dir_path}")
+#             if not os.path.exists(dir_path):
+#                 os.makedirs(dir_path)
+#                 logging.info(f"Created directory: {dir_path}")
+#             else:
+#                 logging.info(f"Directory already exists: {dir_path}")
 
-    except Exception as e:
-        logging.error(f"Error while processing YAML: {e}")
-        print(f"Error while processing YAML: {e}")
+#     except Exception as e:
+#         logging.error(f"Error while processing YAML: {e}")
+#         print(f"Error while processing YAML: {e}")
 
 
 def initialize_environment():
@@ -165,7 +145,7 @@ def initialize_environment():
 
     # Load configuration
     config_path = os.path.join(PATH_ROOT, 'config.yaml')
-    # CONFIG = load_config(config_path)
+    
     try:
         with open(config_path, "r") as config_file:
             CONFIG = yaml.safe_load(config_file)
@@ -178,16 +158,32 @@ def initialize_environment():
         # Log error if there is an issue parsing the YAML file
         raise ValueError(f"Error parsing YAML file: {e}")
 
-
-
-
+    # Configure logging
     configure_logging(PATH_ROOT, CONFIG["logging"])
 
-    setup_directories(PATH_ROOT, CONFIG["directories"])
+    # Setup necessary directories
+    # setup_directories(PATH_ROOT, CONFIG["directories"])
+    try:
+        # Iterate through the directory configurations
+        for dir_type, dir_path in CONFIG["directories"].items():
+            
+            dir_path = os.path.join(PATH_ROOT, dir_path)
+            dir_path = os.path.normpath(dir_path)
 
+            if not os.path.exists(dir_path):
+                os.makedirs(dir_path)
+                logging.info(f"Created directory: {dir_path}")
+            else:
+                logging.info(f"Directory already exists: {dir_path}")
+
+    except Exception as e:
+        logging.error(f"Error while processing YAML: {e}")
+        print(f"Error while processing YAML: {e}")
+
+    # Get output file paths
     FILE_PATHS = get_output_file_paths(CONFIG["files"])
     logging.info(f"Environment initialized successfully.{PATH_ROOT}")
 
-    #path output process
+    # path output process
     RESEARCH_OUTPUT_PATH_TMP = CONFIG["directories"]['output'] 
     OUTPUT_PATH     = os.path.normpath(os.path.join(PATH_ROOT, RESEARCH_OUTPUT_PATH_TMP))
